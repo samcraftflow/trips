@@ -3991,6 +3991,8 @@ function stopJourney() {
 function selectStop(idx) {
   const stop = TRIP.stops[idx];
   if (!stop) return;
+  // Close any open POI popup from a previous selection — otherwise it lingers
+  if (map) map.closePopup();
   currentStopIdx = idx;
   // First-visit hint: user discovered how to open stops, dismiss it
   if (typeof dismissHint === 'function') dismissHint();
@@ -4044,7 +4046,8 @@ function closeDetail() {
   const activeCard = document.querySelector('.stop-card.is-active');
   if (activeCard) activeCard.focus();
   p.setAttribute('inert', '');
-  currentStopIdx = -1;
+  currentStopIdx = -1; // set BEFORE closePopup so popupclose handler skips its own zoom-out
+  if (map) map.closePopup(); // close any open POI floating modal
   updateActiveMarker(-1);
   clearPois();
   $('#mapReset').classList.remove('is-visible');
