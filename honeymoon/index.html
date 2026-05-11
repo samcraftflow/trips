@@ -1,0 +1,4419 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Europe Honeymoon</title>
+<meta name="description" content="Europe Honeymoon — Oct 16 – Nov 1, 2026" />
+<meta property="og:title" content="Europe Honeymoon" />
+<meta property="og:description" content="Oct 16 – Nov 1, 2026 · 16 days, 16 nights" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://samcraftflow.github.io/trips/honeymoon/img/stop-1/1.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#f8f6f1" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1a1814" media="(prefers-color-scheme: dark)" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #f8f6f1;
+  --bg-elev: #ffffff;
+  --bg-soft: #f0ede5;
+  --border: #e6e2d8;
+  --border-strong: #d4cfc1;
+  --text: #1b1a17;
+  --text-mid: #56524a;
+  --text-soft: #6f6a5e; /* 4.6:1 on --bg ✓ WCAG AA */
+  --accent: #b8543a;
+  --accent-soft: rgba(184, 84, 58, 0.08);
+  --success: #3a6b2a;
+  --warning: #c47a3a;
+  --tier-l-bg: #f4e8e0;  --tier-l-text: #8b3a1f;
+  --tier-p-bg: #e8f0e4;  --tier-p-text: #3a6b2a;
+  --tier-b-bg: #e4ecf4;  --tier-b-text: #2a527d;
+  --urgent-bg: #fbf2e8;  --urgent-border: #c47a3a;
+  --tip-bg: #fef9ef;     --tip-border: #d4a256;
+  --shadow-sm: 0 1px 2px rgba(40, 30, 20, 0.04);
+  --shadow-md: 0 6px 20px rgba(40, 30, 20, 0.07);
+  --shadow-lg: 0 20px 50px rgba(40, 30, 20, 0.12);
+}
+[data-theme="dark"] {
+  --bg: #1a1814;
+  --bg-elev: #25221d;
+  --bg-soft: #2f2b25;
+  --border: #34302a;
+  --border-strong: #4a463e;
+  --text: #f0ece4;
+  --text-mid: #b8b2a5;
+  --text-soft: #7d7669;
+  --accent: #d97757;
+  --accent-soft: rgba(217, 119, 87, 0.12);
+  --success: #7da866;
+  --warning: #d4a256;
+  --tier-l-bg: #3a2419;  --tier-l-text: #e8a98a;
+  --tier-p-bg: #1f2e1c;  --tier-p-text: #a8c98e;
+  --tier-b-bg: #1c2735;  --tier-b-text: #88a8c8;
+  --urgent-bg: #2e2418;  --urgent-border: #c47a3a;
+  --tip-bg: #2a2418;     --tip-border: #d4a256;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+:root {
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+  --font-serif: 'Lora', 'Noto Serif TC', 'Songti TC', Georgia, serif;
+  --font-sans: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'PingFang TC', sans-serif;
+  --sidebar-w: 380px;
+  --detail-w: 460px;
+  --header-h: 64px;
+  /* Button scale tokens (icon/square/circular buttons) — all icons sized to ~50% of container */
+  --btn-xs: 20px;  --icon-xs: 12px;  /* checkboxes, micro-chips */
+  --btn-sm: 28px;  --icon-sm: 14px;  /* secondary square (checklist-cal, packing-remove) */
+  --btn-md: 32px;  --icon-md: 18px;  /* tertiary circular (popup close, carousel nav) */
+  --btn-lg: 36px;  --icon-lg: 18px;  /* primary circular (icon-btn, add) */
+  --btn-xl: 44px;  --icon-xl: 22px;  /* mobile-promoted */
+  /* Pill padding scale */
+  --pill-sm: 4px 10px;   /* tags */
+  --pill-md: 6px 12px;   /* action-btn, detail-nav-btn, style-btn */
+  --pill-lg: 8px 14px;   /* tab, btn */
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--bg);
+  font-size: 14px;
+  line-height: 1.55;
+  font-feature-settings: 'kern', 'liga';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+@keyframes marker-pulse {
+  0%, 100% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 0 4px rgba(255, 255, 255, 0.6); }
+  50%      { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 0 14px rgba(255, 255, 255, 0.15); }
+}
+@keyframes vehicle-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Respect users with vestibular sensitivities (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Skip link — visually hidden until focused */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.skip-link:focus { left: 8px; outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ────────────────────────────────────────────────────────
+   TOP BAR
+   ──────────────────────────────────────────────────────── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.brand-emoji { font-size: 20px; flex-shrink: 0; }
+.brand-text {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.brand-sep { color: var(--text-soft); font-size: 12px; }
+.brand-sub {
+  color: var(--text-mid);
+  font-size: 13px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px; /* 50% ratio — was 14px (39%, too small) */
+  line-height: 1;
+  transition: all 0.15s ease;
+  color: var(--text);
+}
+.icon-btn > span { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+.icon-btn:hover { background: var(--bg-soft); border-color: var(--border-strong); }
+.icon-btn.is-playing {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: var(--bg-elev);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  transition: all 0.15s ease;
+}
+.btn:hover { background: var(--bg-soft); border-color: var(--border-strong); }
+
+/* ────────────────────────────────────────────────────────
+   LAYOUT + SIDEBAR
+   ──────────────────────────────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  height: calc(100vh - var(--header-h));
+  position: relative;
+}
+.sidebar {
+  border-right: 1px solid var(--border);
+  background: var(--bg);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+.cover { position: relative; }
+.cover-img {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, #d4b896, #b8543a);
+  overflow: hidden;
+}
+.cover-img::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite linear;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.cover-img.is-loaded::before { opacity: 0; }
+.cover-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+.cover-img.is-loaded img { opacity: 1; }
+.cover-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(20, 15, 10, 0.6));
+}
+.cover-countdown {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-full);
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.cover-countdown-num {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 700;
+}
+.cover-meta {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 20px;
+  color: white;
+  z-index: 1;
+}
+.cover-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.cover-title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 6px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.cover-dates {
+  font-size: 13px;
+  opacity: 0.92;
+  letter-spacing: 0.01em;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+.stat { text-align: center; border-right: 1px solid var(--border); }
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+
+.countries-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+.country-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 5px 6px;
+  border-radius: var(--radius-full);
+  background: var(--bg-soft);
+  font-size: 12px;
+  font-weight: 500;
+}
+.country-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+.booking-card {
+  margin: 20px 24px 0;
+  padding: 14px 16px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.booking-circle {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+.booking-circle svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.booking-track { stroke: var(--bg-soft); fill: none; stroke-width: 4; }
+.booking-fill { stroke: var(--accent); fill: none; stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset 0.5s ease; }
+.booking-pct {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 12px;
+  font-weight: 700;
+}
+.booking-body { flex: 1; min-width: 0; }
+.booking-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.booking-detail { font-size: 11.5px; color: var(--text-soft); }
+.booking-detail .urgent { color: var(--tier-l-text); font-weight: 700; } /* 7:1 contrast vs 3:1 */
+
+/* Packing list — collapsible card */
+.packing-card {
+  margin: 12px 24px 0;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.packing-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  border-radius: var(--radius);
+}
+.packing-head:hover { background: var(--bg-soft); }
+.packing-circle { position: relative; width: 44px; height: 44px; flex-shrink: 0; }
+.packing-circle svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.packing-track { stroke: var(--bg-soft); fill: none; stroke-width: 4; }
+.packing-fill { stroke: var(--success); fill: none; stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset 0.5s ease; }
+.packing-pct {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 12px; font-weight: 700;
+}
+.packing-body { flex: 1; min-width: 0; }
+.packing-title-row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+  margin-bottom: 2px;
+}
+.packing-title { font-size: 12px; font-weight: 600; color: var(--text); }
+.packing-chevron { font-size: 16px; color: var(--text-mid); transition: transform 0.2s ease; line-height: 1; padding: 2px 4px; }
+.packing-card.is-open .packing-chevron { transform: rotate(180deg); }
+.packing-detail { font-size: 11.5px; color: var(--text-soft); }
+.packing-detail .left { color: var(--warning); font-weight: 600; }
+
+.packing-body-expanded {
+  display: none;
+  border-top: 1px solid var(--border);
+  padding: 8px 0 12px;
+  background: var(--bg);
+}
+.packing-card.is-open .packing-body-expanded { display: block; }
+
+.packing-category {
+  padding: 10px 16px 4px;
+}
+.packing-category-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-mid);
+  margin-bottom: 6px;
+}
+.packing-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.packing-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 4px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  border-radius: 6px;
+  transition: background 0.12s ease;
+  position: relative;
+}
+.packing-item:hover { background: var(--bg-soft); }
+.packing-checkbox {
+  flex-shrink: 0;
+  width: 24px; height: 24px; /* match checklist-checkbox + WCAG touch target */
+  border-radius: 5px;
+  border: 1.5px solid var(--border-strong);
+  background: var(--bg-elev);
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.packing-checkbox.is-checked {
+  background: var(--success);
+  border-color: var(--success);
+}
+.packing-checkbox.is-checked::after { content: '✓'; color: white; font-size: 13px; font-weight: 700; }
+.packing-label { flex: 1; cursor: pointer; user-select: none; }
+.packing-item.is-checked .packing-label { text-decoration: line-through; color: var(--text-soft); }
+.packing-remove {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-soft);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  line-height: 1;
+}
+.packing-item.is-custom .packing-remove { display: inline-flex; }
+.packing-remove:hover { background: var(--urgent-bg); color: var(--urgent-border); opacity: 1; }
+
+.packing-add-row {
+  display: flex; gap: 6px;
+  padding: 6px 4px 8px;
+  margin-top: 2px;
+}
+.packing-add-input {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 10px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--text);
+  transition: border-color 0.15s ease;
+}
+.packing-add-input:focus { outline: none; border-color: var(--accent); }
+.packing-add-input::placeholder { color: var(--text-soft); }
+.packing-add-btn {
+  flex-shrink: 0;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text-mid);
+  transition: all 0.15s ease;
+}
+.packing-add-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+.packing-add-input { height: 36px; }
+
+.budget-card {
+  margin: 12px 24px 0;
+  padding: 16px 18px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.budget-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px dashed var(--border);
+}
+.budget-title { font-size: 11px; font-weight: 600; color: var(--text-soft); letter-spacing: 0.08em; text-transform: uppercase; }
+.budget-currency { font-size: 10.5px; color: var(--text-soft); }
+.budget-rows { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.budget-row { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--text-mid); }
+.budget-row strong { font-weight: 500; color: var(--text); }
+.budget-total {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-top: 10px; border-top: 1px solid var(--border);
+}
+.budget-total-label { font-size: 11px; font-weight: 600; color: var(--text-soft); letter-spacing: 0.08em; text-transform: uppercase; }
+.budget-total-amount { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: var(--accent); }
+.budget-foot { margin-top: 8px; font-size: 10.5px; color: var(--text-soft); line-height: 1.5; }
+
+.stops-nav { padding: 20px 24px 16px; }
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.section-head .section-label { margin: 0; }
+.onboarding-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 6px 5px 9px;
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  animation: fade-in-up 0.4s ease;
+}
+.onboarding-hint[hidden] { display: none; }
+.hint-text { line-height: 1.3; }
+.hint-close {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--accent);
+  transition: background 0.15s ease;
+}
+.hint-close:hover { background: color-mix(in srgb, var(--accent) 20%, transparent); }
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-soft);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+.stops-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.stop-card {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+.stop-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+.stop-card.is-active { border-color: var(--text); box-shadow: var(--shadow-md); }
+.stop-card-warn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px; /* was 2px 7px — too small to read */
+  background: var(--warning);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  display: none;
+}
+.stop-card-warn.is-shown { display: inline-flex; }
+.stop-num {
+  flex-shrink: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 14px; font-weight: 600;
+  color: white;
+}
+.stop-body { flex: 1; min-width: 0; }
+.stop-header { display: flex; align-items: baseline; gap: 6px; margin-bottom: 2px; }
+.stop-emoji { font-size: 14px; }
+.stop-name {
+  font-family: var(--font-serif);
+  font-size: 15px; font-weight: 600;
+  line-height: 1.25; letter-spacing: -0.01em;
+}
+.stop-meta { font-size: 12px; color: var(--text-soft); display: flex; gap: 8px; align-items: center; }
+.stop-meta-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--text-soft); }
+.stop-badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 8px;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.03em;
+  border-radius: var(--radius-full);
+  background: var(--bg-soft);
+  color: var(--text-mid);
+}
+.last-updated {
+  padding: 8px 24px 24px;
+  font-size: 10.5px;
+  color: var(--text-soft);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* ────────────────────────────────────────────────────────
+   MAP
+   ──────────────────────────────────────────────────────── */
+.map-wrap { position: relative; background: var(--bg-soft); overflow: hidden; }
+#map { width: 100%; height: 100%; }
+
+.leaflet-container { background: var(--bg-soft); font-family: var(--font-sans); }
+[data-theme="dark"] .leaflet-container { background: #15130f; }
+.leaflet-control-attribution {
+  background: color-mix(in srgb, var(--bg-elev) 85%, transparent) !important;
+  color: var(--text-mid) !important;
+  font-size: 10px !important; padding: 2px 8px !important;
+}
+.leaflet-control-attribution a { color: var(--accent) !important; }
+.leaflet-control-zoom a {
+  background: var(--bg-elev) !important; color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  width: 32px !important; height: 32px !important; line-height: 32px !important;
+  font-size: 16px !important; font-weight: 400 !important;
+  margin-bottom: 4px !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+.leaflet-control-zoom { border: none !important; box-shadow: none !important; margin: 16px !important; }
+
+.stop-marker { background: transparent; border: none; }
+.stop-marker-inner {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-family: var(--font-serif); font-weight: 700; font-size: 14px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+}
+[data-theme="dark"] .stop-marker-inner { border-color: #f0ece4; }
+.stop-marker:hover .stop-marker-inner { transform: scale(1.15); }
+.stop-marker.is-active .stop-marker-inner {
+  transform: scale(1.25);
+  animation: marker-pulse 1.8s ease-out infinite;
+}
+
+.poi-marker { background: transparent; border: none; }
+.poi-marker-inner {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-elev);
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  font-size: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.poi-marker.is-hotel .poi-marker-inner { border-radius: 6px; }
+
+/* Leaflet popup override + POI popup */
+.leaflet-popup-content-wrapper {
+  background: var(--bg-elev) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-lg) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+.leaflet-popup-content { margin: 0 !important; width: 280px !important; }
+.leaflet-popup-tip { background: var(--bg-elev) !important; border: 1px solid var(--border) !important; }
+.leaflet-popup-close-button {
+  color: var(--text) !important;
+  background: var(--bg-elev) !important;
+  border-radius: 50% !important;
+  width: 32px !important; height: 32px !important;
+  padding: 0 !important;
+  top: 10px !important; right: 10px !important;
+  font-size: 18px !important; /* was 22 — visually heavier than detail-close (34/20=59%) */
+  line-height: 32px !important;
+  text-align: center !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-md) !important;
+  font-weight: 500 !important;
+}
+.leaflet-popup-close-button:hover { background: var(--bg-soft) !important; transform: scale(1.06); }
+
+/* Carousel inside POI popup */
+.poi-popup-carousel {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, var(--popup-color, #c0392b) 0%, color-mix(in srgb, var(--popup-color, #c0392b) 55%, #ffffff) 100%);
+  overflow: hidden;
+}
+.poi-popup-carousel-track {
+  display: flex;
+  height: 100%;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.poi-popup-carousel-track::-webkit-scrollbar { display: none; }
+.poi-popup-slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.poi-popup-slide img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+.poi-popup-slide img.is-fading { opacity: 0; }
+.poi-popup-carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 18px; /* was 22 — too chunky for thin glyph */
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.15s ease;
+  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  padding: 0;
+}
+.poi-popup-carousel-nav:hover { background: rgba(0, 0, 0, 0.7); transform: translateY(-50%) scale(1.06); }
+.poi-popup-carousel-nav:disabled { opacity: 0.35; cursor: not-allowed; }
+.poi-popup-carousel-nav.prev { left: 8px; }
+.poi-popup-carousel-nav.next { right: 8px; }
+.poi-popup-carousel-dots {
+  position: absolute;
+  bottom: 10px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 2;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 999px;
+}
+.poi-popup-carousel-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s ease;
+}
+.poi-popup-carousel-dot.is-active {
+  width: 18px;
+  border-radius: 3px;
+  background: white;
+}
+.poi-popup-carousel-credit {
+  position: absolute;
+  top: 8px; left: 8px;
+  z-index: 2;
+  font-size: 9px;
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 2px 6px;
+  border-radius: 6px;
+  letter-spacing: 0.03em;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.poi-popup-carousel.has-wiki .poi-popup-carousel-credit { opacity: 0.85; }
+
+.poi-popup-body { padding: 14px 16px 16px; }
+.poi-popup-head {
+  display: flex; align-items: flex-start; gap: 8px;
+  margin-bottom: 6px;
+}
+.poi-popup-emoji { font-size: 18px; line-height: 1.2; }
+.poi-popup-name {
+  flex: 1;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.25;
+  color: var(--text);
+}
+.poi-popup-price {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.poi-popup-desc {
+  font-size: 12px;
+  color: var(--text-mid);
+  line-height: 1.5;
+  margin: 0 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.poi-popup-meta {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 10px;
+}
+.poi-popup-tag {
+  display: inline-block;
+  padding: 2px 7px;
+  background: var(--bg-soft);
+  border-radius: var(--radius-full);
+  font-size: 10px; color: var(--text-mid); font-weight: 500;
+}
+.poi-popup-actions {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+
+.vehicle-marker { background: transparent; border: none; pointer-events: none; }
+.vehicle-icon {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35));
+  animation: vehicle-bob 0.8s ease-in-out infinite;
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 16px; left: 16px;
+  z-index: 500;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 11px;
+  box-shadow: var(--shadow-md);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.legend-row { display: flex; align-items: center; gap: 8px; }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--bg-elev); box-shadow: 0 0 0 1px var(--border-strong); }
+
+.map-controls {
+  position: absolute; top: 16px; right: 16px; z-index: 500;
+  display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
+}
+.map-style-switcher {
+  display: flex;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  box-shadow: var(--shadow-md);
+}
+.style-btn {
+  padding: 6px 12px;
+  font-size: 11px; font-weight: 500;
+  border-radius: var(--radius-full);
+  color: var(--text-mid);
+  transition: all 0.2s ease;
+}
+.style-btn:hover { color: var(--text); }
+.style-btn.is-active { background: var(--text); color: var(--bg-elev); }
+
+.map-reset {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 7px 14px;
+  font-size: 12px; font-weight: 500;
+  box-shadow: var(--shadow-md);
+  display: none; align-items: center; gap: 6px;
+  color: var(--text);
+}
+.map-reset.is-visible { display: inline-flex; }
+.map-reset:hover { background: var(--bg-soft); }
+
+.journey-progress {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 500;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: color-mix(in srgb, var(--bg-elev) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+  font-size: 12px;
+  font-weight: 500;
+}
+.journey-progress.is-visible { display: inline-flex; }
+.journey-progress-bar {
+  width: 80px;
+  height: 4px;
+  background: var(--bg-soft);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.journey-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+/* ────────────────────────────────────────────────────────
+   DETAIL PANEL
+   ──────────────────────────────────────────────────────── */
+.detail-panel {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: var(--detail-w);
+  background: var(--bg-elev);
+  border-left: 1px solid var(--border);
+  box-shadow: -8px 0 32px rgba(40, 30, 20, 0.08);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex; flex-direction: column;
+  z-index: 600;
+}
+.detail-panel.is-open { transform: translateX(0); }
+
+.photo-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 3px;
+  aspect-ratio: 3 / 2;
+  flex-shrink: 0;
+  background: var(--bg-soft);
+}
+.photo-slot { position: relative; overflow: hidden; background: var(--bg-soft); }
+.photo-slot:nth-child(1) { grid-row: 1 / 4; }
+.photo-slot img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.photo-slot img.is-loaded { opacity: 1; }
+.photo-slot::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, var(--bg-soft) 0%, var(--border) 50%, var(--bg-soft) 100%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite linear;
+  transition: opacity 0.3s ease;
+}
+.photo-slot.is-loaded::before { opacity: 0; pointer-events: none; }
+.photo-slot.is-fallback::before {
+  background: linear-gradient(135deg, var(--photo-color, #c0392b) 0%, color-mix(in srgb, var(--photo-color, #c0392b) 50%, #ffffff) 100%);
+  animation: none; opacity: 1;
+}
+
+.detail-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 20px; color: #1b1a17;
+  z-index: 10;
+  box-shadow: var(--shadow-md);
+  transition: all 0.15s ease;
+}
+.detail-close:hover { transform: scale(1.06); background: white; }
+
+.detail-head {
+  padding: 18px 24px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.detail-head-meta {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: var(--text-soft);
+  margin-bottom: 6px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.detail-head-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-serif); font-weight: 700; font-size: 11px;
+  color: white;
+}
+.detail-head-title {
+  font-family: var(--font-serif);
+  font-size: 26px; font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+}
+.detail-head-dates { font-size: 13px; color: var(--text-mid); }
+.detail-nav { display: flex; gap: 8px; margin-top: 12px; }
+.detail-nav-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 12px; /* was 4×8 — too small vs siblings (Prev/Next is primary nav) */
+  border-radius: 6px;
+  background: var(--bg-soft);
+  font-size: 12px; font-weight: 500;
+  color: var(--text-mid);
+  transition: all 0.15s ease;
+}
+.detail-nav-btn:hover:not(:disabled) { background: var(--border); color: var(--text); }
+.detail-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.tabs {
+  display: flex;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev);
+  position: sticky; top: 0; z-index: 5;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  padding: 12px 14px;
+  font-size: 12px; font-weight: 500;
+  color: var(--text-soft);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--text-mid); }
+.tab.is-active { color: var(--text); border-bottom-color: var(--text); }
+
+.detail-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+.detail-body::-webkit-scrollbar { width: 6px; }
+.detail-body::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+.tab-pane { display: none; animation: fade-in-up 0.3s ease; }
+.tab-pane.is-active { display: block; }
+
+.schedule-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.schedule-item {
+  display: flex; gap: 12px;
+  padding: 12px;
+  background: var(--bg);
+  border-radius: var(--radius);
+  font-size: 13px; line-height: 1.6;
+}
+.schedule-bullet {
+  flex-shrink: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 8px;
+}
+
+.item-card {
+  padding: 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.item-card:hover { border-color: var(--border-strong); background: var(--bg-elev); box-shadow: var(--shadow-sm); }
+.item-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+.item-emoji { font-size: 18px; line-height: 1.2; }
+.item-title { flex: 1; font-weight: 600; font-size: 14px; letter-spacing: -0.005em; line-height: 1.3; }
+.item-price { font-size: 12px; color: var(--accent); font-weight: 600; white-space: nowrap; }
+.item-desc { font-size: 12.5px; color: var(--text-mid); line-height: 1.55; margin: 0 0 8px; }
+.item-foot { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px; /* was 5×10 — too cramped vertically */
+  border-radius: var(--radius-full);
+  background: var(--bg-soft);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-mid);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  line-height: 1.2;
+}
+.action-btn:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-1px);
+}
+.action-btn-icon { font-size: 12px; }
+.item-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--bg-soft);
+  border-radius: var(--radius-full);
+  font-size: 10.5px; color: var(--text-mid); font-weight: 500;
+}
+.item-tag.tier-l { background: var(--tier-l-bg); color: var(--tier-l-text); }
+.item-tag.tier-p { background: var(--tier-p-bg); color: var(--tier-p-text); }
+.item-tag.tier-b { background: var(--tier-b-bg); color: var(--tier-b-text); }
+.item-time { font-size: 11px; color: var(--text-soft); }
+
+.section-summary {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: var(--bg-soft);
+  border-radius: var(--radius);
+  font-size: 12px;
+}
+.section-summary-label { font-weight: 600; color: var(--text-mid); letter-spacing: 0.04em; text-transform: uppercase; font-size: 10.5px; }
+.section-summary-value { font-family: var(--font-serif); font-weight: 600; font-size: 15px; color: var(--accent); }
+
+/* Checklist with booking tracker */
+.checklist-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.checklist-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg);
+  border-radius: var(--radius);
+  font-size: 13px; line-height: 1.45;
+  transition: all 0.2s ease;
+}
+.checklist-item.is-urgent { background: var(--urgent-bg); border-left: 3px solid var(--urgent-border); }
+.checklist-item.is-done { opacity: 0.6; }
+.checklist-item.is-done .checklist-task { text-decoration: line-through; }
+.checklist-checkbox {
+  flex-shrink: 0;
+  width: 24px; height: 24px; /* WCAG 2.5.5 touch target */
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-top: 0;
+  transition: all 0.15s ease;
+  background: var(--bg-elev);
+}
+.checklist-checkbox.is-urgent { border-color: var(--urgent-border); background: var(--urgent-bg); }
+.checklist-checkbox.is-checked {
+  background: var(--success);
+  border-color: var(--success);
+}
+.checklist-checkbox.is-checked::after { content: '✓'; color: white; font-size: 12px; font-weight: 700; }
+.checklist-body { flex: 1; min-width: 0; }
+.checklist-task { font-weight: 500; color: var(--text); }
+.checklist-note { font-size: 11.5px; color: var(--text-soft); margin-top: 2px; }
+.checklist-cal {
+  flex-shrink: 0;
+  width: 28px; height: 28px; /* align to 4-step button scale (was 26 outlier) */
+  border-radius: 6px;
+  background: var(--bg-soft);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 14px; /* 50% ratio */
+  line-height: 1;
+  transition: all 0.15s ease;
+  color: var(--text-mid);
+}
+.checklist-cal:hover { background: var(--accent); color: white; }
+
+/* Transport */
+.transport-card { padding: 16px; background: var(--bg); border-radius: var(--radius); margin-bottom: 14px; }
+.transport-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.transport-icon {
+  font-size: 22px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.transport-label { font-weight: 600; font-size: 14px; line-height: 1.3; }
+.transport-direction { font-size: 10.5px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+.transport-detail { font-size: 12.5px; color: var(--text-mid); line-height: 1.55; margin-bottom: 8px; }
+.transport-meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 12px; }
+.transport-meta-item { display: inline-flex; align-items: center; gap: 4px; color: var(--text-mid); }
+.transport-meta-key { color: var(--text-soft); }
+.transport-tip {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--tip-bg);
+  border-left: 3px solid var(--tip-border);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--text-mid);
+  line-height: 1.55;
+}
+.transport-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 12px; color: var(--accent); font-weight: 500; }
+.transport-link:hover { text-decoration: underline; }
+
+/* Detail extras wrapper — divider + label separating stop-level info from tab content */
+.detail-extras {
+  margin-top: 36px;
+  padding-top: 28px;
+  position: relative;
+  border-top: 1px dashed var(--border-strong);
+}
+.detail-extras::before {
+  content: 'About this stop';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-elev);
+  padding: 0 14px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+/* Notes section */
+.notes-section {
+  margin-top: 0;
+  padding: 18px 20px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.notes-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 12px;
+}
+.notes-title { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
+.notes-hint { font-size: 10px; color: var(--text-soft); font-weight: 400; text-transform: none; letter-spacing: 0; }
+.notes-textarea {
+  width: 100%;
+  min-height: 88px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-elev);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+  resize: vertical;
+  transition: border-color 0.15s ease;
+}
+.notes-textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+.notes-textarea:focus { border-color: var(--accent); }
+/* Visible focus for all interactive elements */
+.icon-btn:focus-visible, .btn:focus-visible, .action-btn:focus-visible,
+.tab:focus-visible, .style-btn:focus-visible, .stop-card:focus-visible,
+.item-card:focus-visible, .checklist-checkbox:focus-visible,
+.checklist-cal:focus-visible, .detail-nav-btn:focus-visible,
+.detail-close:focus-visible, .map-reset:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.notes-textarea::placeholder { color: var(--text-soft); }
+.notes-status {
+  font-size: 10.5px;
+  color: var(--text-soft);
+  margin-top: 6px;
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+
+/* Good to know */
+.gtk-card {
+  margin-top: 16px;
+  padding: 18px 20px 20px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.gtk-title { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 14px; }
+.gtk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; }
+.gtk-item { display: flex; gap: 10px; align-items: flex-start; }
+.gtk-emoji { font-size: 18px; flex-shrink: 0; line-height: 1.2; }
+.gtk-key { font-size: 10.5px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1px; }
+.gtk-val { font-size: 12.5px; font-weight: 500; line-height: 1.4; }
+
+.gtk-extra {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+}
+.gtk-extra summary {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-soft);
+  cursor: pointer;
+  padding: 6px 0;
+  list-style: none;
+  display: flex; align-items: center; gap: 6px;
+}
+.gtk-extra summary::-webkit-details-marker { display: none; }
+.gtk-extra summary::before { content: '▸'; font-size: 9px; transition: transform 0.2s ease; }
+.gtk-extra[open] summary::before { transform: rotate(90deg); }
+.gtk-extra-content { padding-top: 10px; }
+.emergency-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; }
+.emergency-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.emergency-item:last-child { border-bottom: none; }
+.emergency-key { color: var(--text-soft); }
+.emergency-val { font-weight: 600; font-family: var(--font-mono, ui-monospace), monospace; }
+.phrases-list { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; }
+.phrase-row { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; border-bottom: 1px solid var(--border); }
+.phrase-row:last-child { border-bottom: none; }
+.phrase-en { color: var(--text-soft); flex-shrink: 0; }
+.phrase-local { font-weight: 500; text-align: right; }
+
+.empty-state {
+  text-align: center;
+  padding: 32px 24px;
+  color: var(--text-soft);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.empty-state-emoji { font-size: 28px; margin-bottom: 8px; opacity: 0.6; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--text);
+  color: var(--bg);
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 2000;
+}
+.toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Mobile */
+@media (max-width: 1024px) {
+  :root { --sidebar-w: 320px; --detail-w: 400px; }
+}
+@media (max-width: 768px) {
+  :root { --header-h: 56px; }
+  .layout { grid-template-columns: 1fr; grid-template-rows: 50vh 1fr; }
+  .sidebar { grid-row: 2; border-right: none; border-top: 1px solid var(--border); max-height: 50vh; }
+  .map-wrap { grid-row: 1; }
+  .topbar { padding: 0 12px; gap: 6px; }
+  .brand { gap: 8px; min-width: 0; flex: 1; }
+  .brand-text { font-size: 15px; }
+  .brand-sep, .brand-sub { display: none; }
+  /* Share button: icon-only on mobile (native share is essential here) */
+  .btn { padding: 0; width: 36px; height: 36px; border-radius: 50%; justify-content: center; gap: 0; }
+  .btn span:not([aria-hidden]) { display: none; }
+  .btn span[aria-hidden] { font-size: 16px; }
+  .icon-btn { font-size: 18px; }
+  /* Detail panel slides up from bottom on mobile */
+  .detail-panel { width: 100%; border-left: none; border-top: 1px solid var(--border); transform: translateY(100%); }
+  .detail-panel.is-open { transform: translateY(0); }
+  .cover-img { aspect-ratio: 16 / 9; }
+  .cover-title { font-size: 24px; }
+  .stat-num { font-size: 18px; }
+  .map-legend { font-size: 10px; padding: 8px 10px; }
+  /* Touch target sizes — WCAG 2.5.5 + Apple HIG */
+  .map-style-switcher { padding: 3px; }
+  .style-btn { padding: 8px 12px; font-size: 11px; min-height: 28px; }
+  .map-reset { padding: 9px 14px; min-height: 32px; }
+  .icon-btn { width: 40px; height: 40px; }
+  .checklist-cal { width: 32px; height: 32px; }
+  .action-btn { padding: 7px 12px; font-size: 12px; min-height: 32px; }
+  .detail-nav-btn { padding: 7px 12px; min-height: 32px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-emoji" id="brandEmoji" aria-hidden="true">✈️</span>
+    <span class="brand-text" id="brandText">Europe Honeymoon</span>
+    <span class="brand-sep" aria-hidden="true">·</span>
+    <span class="brand-sub" id="brandSub">Oct 16 – Nov 1, 2026</span>
+  </div>
+  <div class="actions">
+    <button class="icon-btn" id="playBtn" title="Play journey — 30s animated tour through all stops" aria-label="Play journey, 30 second animated tour through all stops"><span aria-hidden="true">▶</span></button>
+    <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark mode"><span aria-hidden="true">☀️</span></button>
+    <button class="btn" id="shareBtn" aria-label="Share this itinerary">
+      <span aria-hidden="true">↗</span>
+      <span>Share</span>
+    </button>
+  </div>
+</header>
+
+<main class="layout" id="main">
+  <aside class="sidebar">
+    <section class="cover">
+      <div class="cover-img">
+        <img id="coverImg" alt="" />
+        <div class="cover-countdown" id="countdown">
+          <span class="cover-countdown-num">—</span>
+          <span>days until</span>
+        </div>
+        <div class="cover-meta">
+          <span class="cover-badge" id="coverBadge">Honeymoon</span>
+          <h1 class="cover-title" id="coverTitle">—</h1>
+          <p class="cover-dates" id="coverDates">—</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><div class="stat-num" id="statStops">—</div><div class="stat-label">Stops</div></div>
+      <div class="stat"><div class="stat-num" id="statCountries">—</div><div class="stat-label">Countries</div></div>
+      <div class="stat"><div class="stat-num" id="statDays">—</div><div class="stat-label">Days</div></div>
+    </section>
+
+    <section class="countries-row" id="countriesRow"></section>
+
+    <section class="budget-card" id="budgetCard"></section>
+
+    <nav class="stops-nav">
+      <div class="section-head">
+        <p class="section-label">Itinerary</p>
+        <div class="onboarding-hint" id="onboardingHint" hidden>
+          <span aria-hidden="true">👆</span>
+          <span class="hint-text">Tap a stop to see photos &amp; details</span>
+          <button class="hint-close" id="hintClose" aria-label="Dismiss hint"><span aria-hidden="true">×</span></button>
+        </div>
+      </div>
+      <ol class="stops-list" id="stopsList"></ol>
+    </nav>
+
+    <section class="booking-card" id="bookingCard"></section>
+    <section class="packing-card" id="packingCard"></section>
+
+    <div class="last-updated" id="lastUpdated"></div>
+  </aside>
+
+  <div class="map-wrap">
+    <div id="map"></div>
+    <div class="map-legend" id="mapLegend"></div>
+    <div class="map-controls">
+      <div class="map-style-switcher" id="mapStyleSwitcher">
+        <button class="style-btn is-active" data-style="editorial">Editorial</button>
+        <button class="style-btn" data-style="watercolor">Watercolor</button>
+        <button class="style-btn" data-style="satellite">Satellite</button>
+      </div>
+      <button class="map-reset" id="mapReset"><span>◉</span><span>Show All</span></button>
+    </div>
+    <div class="journey-progress" id="journeyProgress">
+      <span id="journeyLabel">—</span>
+      <div class="journey-progress-bar"><div class="journey-progress-fill" id="journeyFill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <aside class="detail-panel" id="detailPanel" role="dialog" aria-labelledby="detailHeadTitle" aria-modal="false" inert>
+    <div class="photo-grid" id="photoGrid">
+      <div class="photo-slot"><img alt="" /></div>
+      <div class="photo-slot"><img alt="" /></div>
+      <div class="photo-slot"><img alt="" /></div>
+      <div class="photo-slot"><img alt="" /></div>
+      <button class="detail-close" id="detailClose" aria-label="Close stop details"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="detail-head">
+      <div class="detail-head-meta">
+        <span class="detail-head-num" id="detailHeadNum" style="background:#b8543a">—</span>
+        <span id="detailHeadBadge">—</span>
+      </div>
+      <h2 class="detail-head-title" id="detailHeadTitle">—</h2>
+      <p class="detail-head-dates" id="detailHeadDates">—</p>
+      <div class="detail-nav">
+        <button class="detail-nav-btn" id="prevStopBtn">← Previous</button>
+        <button class="detail-nav-btn" id="nextStopBtn">Next →</button>
+      </div>
+    </div>
+    <div class="tabs" id="tabs">
+      <button class="tab is-active" data-tab="schedule">Schedule</button>
+      <button class="tab" data-tab="activities">Activities</button>
+      <button class="tab" data-tab="hotels">Hotels</button>
+      <button class="tab" data-tab="transport">Transport</button>
+      <button class="tab" data-tab="checklist">Checklist</button>
+    </div>
+    <div class="detail-body" id="detailBody"></div>
+  </aside>
+</main>
+
+<div class="toast" id="toast">—</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+const TRIP = /*{{TRIP_DATA}}*/ {
+  "title": "Europe Honeymoon",
+  "repoFolder": "honeymoon",
+  "dates": "Oct 16 – Nov 1, 2026",
+  "duration": "16 days, 16 nights",
+  "currency": "MYR",
+  "travelers": 2,
+  "departure": "SIN",
+  "countdownTarget": "2026-10-16T00:00:00+08:00",
+  "tripEndDate": "2026-11-02T00:00:00+08:00",
+  "lastUpdated": "2026-05-11",
+  "coverBadge": "Honeymoon · 2 travelers",
+  "packingList": [
+    {
+      "category": "📄 Documents",
+      "items": [
+        "Passport · Sam",
+        "Passport · Kayniss",
+        "International Driving License (IDL)",
+        "Travel insurance docs",
+        "Hotel & flight printouts"
+      ]
+    },
+    {
+      "category": "💳 Money & Cards",
+      "items": [
+        "Euro cash (small notes for tips)",
+        "Credit cards (notify bank!)",
+        "Backup debit card",
+        "Wise / Revolut card"
+      ]
+    },
+    {
+      "category": "🧥 Cold weather (Dolomites/Slovenia 0-15°C)",
+      "items": [
+        "Warm jacket / down coat",
+        "Sweaters ×2-3",
+        "Thermal base layer",
+        "Beanie + gloves + scarf",
+        "Hiking shoes / sturdy boots",
+        "Wool socks ×3+"
+      ]
+    },
+    {
+      "category": "👕 Mild weather (Rome/Sorrento 14-22°C)",
+      "items": [
+        "Light jacket / cardigan",
+        "Long sleeve tops",
+        "Comfortable walking shoes",
+        "Casual day outfits",
+        "Dressy outfit (Vienna Opera)"
+      ]
+    },
+    {
+      "category": "🌂 Weather backup",
+      "items": [
+        "Compact umbrella",
+        "Rain jacket / waterproof",
+        "Quick-dry towel"
+      ]
+    },
+    {
+      "category": "💧 Toiletries",
+      "items": [
+        "Toothbrush + toothpaste",
+        "Shampoo / conditioner travel size",
+        "Deodorant",
+        "Skincare routine",
+        "Razor + spare blades",
+        "Contacts / glasses"
+      ]
+    },
+    {
+      "category": "🔌 Tech",
+      "items": [
+        "EU plug adapter (Type C/F/L)",
+        "Phone chargers ×2",
+        "Power bank",
+        "Camera + memory cards",
+        "Headphones",
+        "Cable organizer pouch"
+      ]
+    },
+    {
+      "category": "🏥 Health",
+      "items": [
+        "Personal medications",
+        "Sunscreen SPF 30+",
+        "Pain relievers (Panadol/Ibuprofen)",
+        "Motion sickness pills",
+        "Bandaids + antiseptic",
+        "Hand sanitizer"
+      ]
+    },
+    {
+      "category": "💍 Honeymoon specials",
+      "items": [
+        "Wedding rings (don't forget!)",
+        "Swimsuits (hotel pools)",
+        "Sleepwear",
+        "Travel pillow + eye mask",
+        "Earplugs"
+      ]
+    },
+    {
+      "category": "🎒 Misc",
+      "items": [
+        "Day backpack",
+        "Reusable water bottle",
+        "Snacks for long flight",
+        "Notepad + pen"
+      ]
+    }
+  ],
+  "countries": [
+    {
+      "name": "Italy",
+      "flag": "🇮🇹",
+      "color": "#c0392b",
+      "emergency": {
+        "General EU": "112",
+        "Police": "113",
+        "Ambulance": "118",
+        "Fire": "115",
+        "SG Embassy (Rome)": "+39 06 4548 8000",
+        "MY Embassy (Rome)": "+39 06 8419 4500"
+      },
+      "phrases": [
+        [
+          "Hello",
+          "Buongiorno / Ciao"
+        ],
+        [
+          "Thank you",
+          "Grazie"
+        ],
+        [
+          "Excuse me",
+          "Mi scusi"
+        ],
+        [
+          "Where is...?",
+          "Dov'è...?"
+        ],
+        [
+          "How much?",
+          "Quanto costa?"
+        ],
+        [
+          "Help!",
+          "Aiuto!"
+        ],
+        [
+          "I don't understand",
+          "Non capisco"
+        ],
+        [
+          "Water, please",
+          "Acqua, per favore"
+        ]
+      ]
+    },
+    {
+      "name": "Slovenia",
+      "flag": "🇸🇮",
+      "color": "#1a7a48",
+      "emergency": {
+        "General EU": "112",
+        "Police": "113",
+        "Ambulance/Fire": "112",
+        "Tourist info": "+386 1 230 6300",
+        "SG/MY Embassy": "via Vienna (AT)"
+      },
+      "phrases": [
+        [
+          "Hello",
+          "Živijo / Dober dan"
+        ],
+        [
+          "Thank you",
+          "Hvala"
+        ],
+        [
+          "Excuse me",
+          "Oprostite"
+        ],
+        [
+          "Where is...?",
+          "Kje je...?"
+        ],
+        [
+          "How much?",
+          "Koliko stane?"
+        ],
+        [
+          "Help!",
+          "Pomoč!"
+        ],
+        [
+          "I don't understand",
+          "Ne razumem"
+        ],
+        [
+          "Water, please",
+          "Vodo, prosim"
+        ]
+      ]
+    },
+    {
+      "name": "Austria",
+      "flag": "🇦🇹",
+      "color": "#1a4fa8",
+      "emergency": {
+        "General EU": "112",
+        "Police": "133",
+        "Ambulance": "144",
+        "Fire": "122",
+        "SG Embassy (Vienna)": "+43 1 712 3017",
+        "MY Embassy (Vienna)": "+43 1 5051042"
+      },
+      "phrases": [
+        [
+          "Hello",
+          "Hallo / Grüß Gott"
+        ],
+        [
+          "Thank you",
+          "Danke"
+        ],
+        [
+          "Excuse me",
+          "Entschuldigung"
+        ],
+        [
+          "Where is...?",
+          "Wo ist...?"
+        ],
+        [
+          "How much?",
+          "Wie viel?"
+        ],
+        [
+          "Help!",
+          "Hilfe!"
+        ],
+        [
+          "I don't understand",
+          "Ich verstehe nicht"
+        ],
+        [
+          "Water, please",
+          "Wasser, bitte"
+        ]
+      ]
+    }
+  ],
+  "stops": [
+    {
+      "n": 1,
+      "name": "Rome",
+      "day": "Day 1–2",
+      "dates": "Oct 16–17",
+      "emoji": "🏛️",
+      "color": "#c0392b",
+      "country": "🇮🇹 Italy",
+      "coords": [
+        41.89,
+        12.492
+      ],
+      "badge": "Start of Honeymoon",
+      "goodToKnow": {
+        "currency": "EUR · ~MYR 5.0",
+        "timezone": "UTC+1 · 7h behind SIN",
+        "plug": "Type C / F / L",
+        "language": "Italian",
+        "climate": "14–22°C · ~7 rainy days · pack light layers"
+      },
+      "schedule": [
+        "Arrival: 3:00am SIN flight → 2:15pm FCO landing → Trastevere dinner",
+        "Day 2: Colosseum + Roman Forum → Vatican + Sistine Chapel → Trevi Fountain (⚠️ all require advance booking)"
+      ],
+      "activities": [
+        {
+          "emoji": "🏛️",
+          "name": "Colosseum + Roman Forum",
+          "desc": "Rome's most iconic sight. Allow 2–3h; go early to beat crowds.",
+          "budget": "MYR 60/pax",
+          "time": "2–3h",
+          "tags": [
+            "Must-see",
+            "Easy walk"
+          ],
+          "coords": [
+            41.89,
+            12.492
+          ]
+        },
+        {
+          "emoji": "⛪",
+          "name": "Vatican + Sistine Chapel",
+          "desc": "Michelangelo's frescoes — once in a lifetime. Pre-book skip-the-line.",
+          "budget": "MYR 80/pax",
+          "time": "3h",
+          "tags": [
+            "Must-see",
+            "Indoor"
+          ],
+          "coords": [
+            41.903,
+            12.454
+          ]
+        },
+        {
+          "emoji": "⛲",
+          "name": "Trevi Fountain + Pantheon",
+          "desc": "Magic at dusk — fewer crowds, golden light. Toss a coin together.",
+          "budget": "Free",
+          "time": "1h",
+          "tags": [
+            "Honeymoon moment",
+            "Free"
+          ],
+          "coords": [
+            41.901,
+            12.483
+          ]
+        },
+        {
+          "emoji": "🍷",
+          "name": "Trastevere evening walk",
+          "desc": "Rome's most authentic old quarter. Perfect first-night vibe.",
+          "budget": "MYR 80–120/pax",
+          "time": "Evening",
+          "tags": [
+            "Romantic",
+            "Night"
+          ],
+          "coords": [
+            41.888,
+            12.466
+          ]
+        }
+      ],
+      "hotels": [
+        {
+          "emoji": "🏨",
+          "name": "Hotel Raphael",
+          "desc": "2-min walk to Piazza Navona, rooftop restaurant overlooking Rome.",
+          "price": "MYR 700–1,200",
+          "tag": "l",
+          "coords": [
+            41.899,
+            12.473
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Hotel de Russie",
+          "desc": "Next to Piazza del Popolo, lush garden, a celebrity favorite.",
+          "price": "MYR 1,400–2,800",
+          "tag": "l",
+          "coords": [
+            41.912,
+            12.476
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Relais Campo de' Fiori",
+          "desc": "Historic building in the city center, rooftop terrace.",
+          "price": "MYR 500–800",
+          "tag": "p",
+          "coords": [
+            41.896,
+            12.472
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Hotel Santa Maria Trastevere",
+          "desc": "Trastevere quarter, charming courtyard, walking distance to sights.",
+          "price": "MYR 300–450",
+          "tag": "b",
+          "coords": [
+            41.888,
+            12.468
+          ]
+        },
+        {
+          "emoji": "🏠",
+          "name": "The RomeHello Hostel",
+          "desc": "Private double rooms near Termini, clean facilities.",
+          "price": "MYR 130–200",
+          "tag": "b",
+          "coords": [
+            41.901,
+            12.499
+          ]
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Colosseum tickets",
+          "urgent": true,
+          "note": "colosseum.it"
+        },
+        {
+          "task": "Vatican tickets",
+          "urgent": true,
+          "note": "museivaticani.va"
+        },
+        {
+          "task": "Rome accommodation (2 nights)",
+          "urgent": true,
+          "note": "Trastevere or Navona area"
+        },
+        {
+          "task": "FCO airport transfer",
+          "urgent": false,
+          "note": "Leonardo Express 30min, MYR 25/pax"
+        }
+      ],
+      "transportIn": null,
+      "transportOut": {
+        "icon": "🚄",
+        "label": "Rome → Sorrento (2 trains)",
+        "detail": "High-speed to Naples (1h) + Circumvesuviana to Sorrento (1h)",
+        "price": "MYR 80–130",
+        "book": "https://www.trenitalia.com",
+        "tip": "Buy Circumvesuviana ticket separately at Naples Garibaldi.",
+        "nextCoords": [
+          40.626,
+          14.376
+        ]
+      },
+      "photos": [
+        "./img/stop-1/1.jpg",
+        "./img/stop-1/2.jpg",
+        "./img/stop-1/3.jpg",
+        "./img/stop-1/4.jpg"
+      ]
+    },
+    {
+      "n": 2,
+      "name": "Sorrento Hub",
+      "day": "Day 3–7",
+      "dates": "Oct 18–22",
+      "emoji": "⚓",
+      "color": "#c0392b",
+      "country": "🇮🇹 Italy",
+      "coords": [
+        40.626,
+        14.376
+      ],
+      "badge": "★ Home base",
+      "goodToKnow": {
+        "currency": "EUR · ~MYR 5.0",
+        "timezone": "UTC+1 · 7h behind SIN",
+        "plug": "Type C / F / L",
+        "language": "Italian",
+        "climate": "14–21°C · ~9 rainy days · sea breeze, bring jacket"
+      },
+      "schedule": [
+        "Strategy: stay in Sorrento for 5 nights, day-trip by ferry from here.",
+        "Day 3: Arrive, wander old town Piazza Tasso + Marina Grande sunset.",
+        "Day 4: → Positano day trip (Ferry 25–30min).",
+        "Day 5: → Capri day trip (Ferry 25min).",
+        "Day 6: → Amalfi town + Ravello (Ferry 1h).",
+        "Day 7: → Pompeii half-day (Train 30min), afternoon pack & rest."
+      ],
+      "activities": [
+        {
+          "emoji": "🚤",
+          "name": "Positano Day Trip",
+          "desc": "Ferry 25–30min. Colorful cliffside town, seafood lunch.",
+          "budget": "Ferry MYR 30/pax",
+          "time": "Full day",
+          "tags": [
+            "Honeymoon highlight",
+            "Ferry 30min"
+          ],
+          "coords": [
+            40.629,
+            14.485
+          ]
+        },
+        {
+          "emoji": "⛵",
+          "name": "Capri + Blue Grotto",
+          "desc": "Ferry 25min. Blue Grotto + Anacapri chairlift.",
+          "budget": "Ferry MYR 45/pax",
+          "time": "Full day",
+          "tags": [
+            "Bucket list",
+            "Ferry 25min"
+          ],
+          "coords": [
+            40.553,
+            14.222
+          ]
+        },
+        {
+          "emoji": "🏘️",
+          "name": "Amalfi town + Ravello",
+          "desc": "Ferry 1h. Hire a car up the hill to Ravello's Villa Rufolo.",
+          "budget": "Ferry MYR 20/pax",
+          "time": "Full day",
+          "tags": [
+            "Must-see",
+            "Ferry 1h"
+          ],
+          "coords": [
+            40.634,
+            14.603
+          ]
+        },
+        {
+          "emoji": "🌋",
+          "name": "Pompeii half-day",
+          "desc": "Circumvesuviana 30min. Walk the ancient city 3h, flat ground.",
+          "budget": "Train MYR 10/pax",
+          "time": "Half day",
+          "tags": [
+            "Historic",
+            "Train 30min"
+          ],
+          "coords": [
+            40.751,
+            14.489
+          ]
+        },
+        {
+          "emoji": "🍋",
+          "name": "Limoncello distillery",
+          "desc": "Sorrento birthplace of Limoncello — tour + tasting.",
+          "budget": "Free or MYR 15/pax",
+          "time": "1h",
+          "tags": [
+            "Local",
+            "Cheap"
+          ],
+          "coords": [
+            40.626,
+            14.374
+          ]
+        },
+        {
+          "emoji": "🌅",
+          "name": "Marina Grande sunset",
+          "desc": "Oldest fishing village, breathtaking sunset.",
+          "budget": "Free",
+          "time": "Sunset",
+          "tags": [
+            "Romantic",
+            "Free"
+          ],
+          "coords": [
+            40.628,
+            14.372
+          ]
+        }
+      ],
+      "hotels": [
+        {
+          "emoji": "🏨",
+          "name": "Grand Hotel Excelsior Vittoria",
+          "desc": "Cliffside infinity sea view, private elevator to the beach.",
+          "price": "MYR 1,200–2,500",
+          "tag": "l",
+          "coords": [
+            40.627,
+            14.378
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Bellevue Syrene",
+          "desc": "Right on the cliff, infinity pool, 5-star.",
+          "price": "MYR 900–1,800",
+          "tag": "l",
+          "coords": [
+            40.626,
+            14.377
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Hotel Antiche Mura",
+          "desc": "Old town center, outdoor pool, 4-star.",
+          "price": "MYR 380–600",
+          "tag": "p",
+          "coords": [
+            40.626,
+            14.376
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Palazzo Tasso Boutique Hotel",
+          "desc": "16th-century building, center of Corso Italia.",
+          "price": "MYR 280–420",
+          "tag": "p",
+          "coords": [
+            40.626,
+            14.375
+          ]
+        },
+        {
+          "emoji": "🏠",
+          "name": "Casa Astarita B&B",
+          "desc": "Boutique B&B, breakfast included, walk to everywhere.",
+          "price": "MYR 220–320",
+          "tag": "b",
+          "coords": [
+            40.625,
+            14.375
+          ]
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Sorrento 5-night stay",
+          "urgent": true,
+          "note": "Peak season → book 2–3 months ahead"
+        },
+        {
+          "task": "Capri Ferry ticket",
+          "urgent": true,
+          "note": "caremar.it, MYR 45/pax return"
+        },
+        {
+          "task": "Ravello private driver",
+          "urgent": true,
+          "note": "Viator or GetYourGuide"
+        },
+        {
+          "task": "Pompeii tickets",
+          "urgent": true,
+          "note": "pompeiisite.org, MYR 60/pax"
+        },
+        {
+          "task": "Positano Ferry",
+          "urgent": false,
+          "note": "Can buy at dock"
+        }
+      ],
+      "transportIn": {
+        "icon": "🚄",
+        "label": "Rome → Sorrento (2 trains)",
+        "detail": "High-speed to Naples (1h) + Circumvesuviana (1h)",
+        "price": "MYR 80–130",
+        "book": "https://www.trenitalia.com",
+        "tip": "Buy Circumvesuviana separately at Naples Garibaldi station."
+      },
+      "transportOut": {
+        "icon": "🚄🚗",
+        "label": "Sorrento → Bolzano (north)",
+        "detail": "Circumvesuviana back to Naples → high-speed north (5h) → pick up rental in Bolzano",
+        "price": "MYR 160–220",
+        "book": "https://www.trenitalia.com",
+        "tip": "Day 7 early start! Pick up car at Bolzano station, need IDL.",
+        "nextCoords": [
+          46.5,
+          11.9
+        ]
+      },
+      "photos": [
+        "./img/stop-2/1.jpg",
+        "./img/stop-2/2.jpg",
+        "./img/stop-2/3.jpg",
+        "./img/stop-2/4.jpg"
+      ]
+    },
+    {
+      "n": 3,
+      "name": "Dolomites",
+      "day": "Day 8–9",
+      "dates": "Oct 23–24",
+      "emoji": "🏔️",
+      "color": "#c0392b",
+      "country": "🇮🇹 Italy",
+      "coords": [
+        46.5,
+        11.9
+      ],
+      "badge": "UNESCO",
+      "goodToKnow": {
+        "currency": "EUR · ~MYR 5.0",
+        "timezone": "UTC+1 · 7h behind SIN",
+        "plug": "Type C / F / L",
+        "language": "Italian",
+        "climate": "0–12°C · cold mornings · pack warm jacket, may snow"
+      },
+      "schedule": [
+        "Day 8: Lago di Braies loop (1h walk) → Tre Cime di Lavaredo viewpoint.",
+        "Day 9: Karersee at sunrise (7–8am best light) → Val di Funes mountain church."
+      ],
+      "activities": [
+        {
+          "emoji": "🏔️",
+          "name": "Lago di Braies",
+          "desc": "Emerald lake + snow peaks reflection, 1h loop walk, kayak rental available.",
+          "budget": "Parking MYR 25",
+          "time": "2–3h",
+          "tags": [
+            "Postcard view",
+            "Easy"
+          ],
+          "coords": [
+            46.694,
+            12.085
+          ]
+        },
+        {
+          "emoji": "⛰️",
+          "name": "Tre Cime di Lavaredo",
+          "desc": "Iconic three peaks of the Dolomites, short walk to viewpoint.",
+          "budget": "Parking MYR 25",
+          "time": "2h",
+          "tags": [
+            "UNESCO",
+            "Easy"
+          ],
+          "coords": [
+            46.617,
+            12.302
+          ]
+        },
+        {
+          "emoji": "🌿",
+          "name": "Karersee",
+          "desc": "Sunrise 7–8am for best light. 30min loop walk.",
+          "budget": "Free",
+          "time": "1h",
+          "tags": [
+            "Most photogenic",
+            "Easy"
+          ],
+          "coords": [
+            46.409,
+            11.575
+          ]
+        },
+        {
+          "emoji": "⛪",
+          "name": "Val di Funes church",
+          "desc": "The famous postcard: meadow church framed by snow peaks.",
+          "budget": "Parking MYR 10",
+          "time": "1–2h",
+          "tags": [
+            "Bucket list",
+            "Drive"
+          ],
+          "coords": [
+            46.575,
+            11.757
+          ]
+        }
+      ],
+      "hotels": [
+        {
+          "emoji": "🏨",
+          "name": "Alpenroyal Grand Hotel",
+          "desc": "Selva 5-star, mountain spa, Michelin restaurant.",
+          "price": "MYR 800–1,400",
+          "tag": "l",
+          "coords": [
+            46.556,
+            11.761
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Rosa Alpina Hotel & Spa",
+          "desc": "San Cassiano, Michelin 3-star, snow peaks all around.",
+          "price": "MYR 1,000–2,000",
+          "tag": "l",
+          "coords": [
+            46.577,
+            11.934
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Hotel Adler Dolomiti",
+          "desc": "Ortisei 4-star, half board, mountain view pool.",
+          "price": "MYR 500–800",
+          "tag": "p",
+          "coords": [
+            46.574,
+            11.672
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Hotel Posta Zirm",
+          "desc": "Corvara traditional lodge, half board.",
+          "price": "MYR 350–550",
+          "tag": "p",
+          "coords": [
+            46.548,
+            11.866
+          ]
+        },
+        {
+          "emoji": "🏠",
+          "name": "Agriturismo Mirabell",
+          "desc": "Val di Funes farm stay, homegrown breakfast.",
+          "price": "MYR 200–320",
+          "tag": "b",
+          "coords": [
+            46.54,
+            11.72
+          ]
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Bolzano car rental",
+          "urgent": true,
+          "note": "Europcar / Hertz, need IDL"
+        },
+        {
+          "task": "Lago di Braies parking",
+          "urgent": true,
+          "note": "prags.it, MYR 25"
+        },
+        {
+          "task": "Dolomites stay (2 nights)",
+          "urgent": true,
+          "note": "Selva or Ortisei"
+        },
+        {
+          "task": "Slovenia e-vignette",
+          "urgent": true,
+          "note": "evignettes.si, weekly MYR 35"
+        }
+      ],
+      "transportIn": {
+        "icon": "🚗",
+        "label": "Pick up rental in Bolzano",
+        "detail": "Near Bolzano train station, drive all the way",
+        "price": "MYR 250–360 / 2 days",
+        "book": "https://www.europcar.com",
+        "tip": "Pre-book Lago di Braies parking — required!"
+      },
+      "transportOut": {
+        "icon": "🚗",
+        "label": "Bolzano → Soča Valley (cross border)",
+        "detail": "Via Tarvisio into Slovenia, ~2.5–3h",
+        "price": "Fuel MYR 60–80 + e-vignette MYR 35",
+        "book": "https://www.evignettes.si",
+        "tip": "Confirm rental allows cross-border; return car in Ljubljana.",
+        "nextCoords": [
+          46.338,
+          13.551
+        ]
+      },
+      "photos": [
+        "./img/stop-3/1.jpg",
+        "./img/stop-3/2.jpg",
+        "./img/stop-3/3.jpg",
+        "./img/stop-3/4.jpg"
+      ]
+    },
+    {
+      "n": 4,
+      "name": "Soča Valley",
+      "day": "Day 10",
+      "dates": "Oct 25",
+      "emoji": "🌿",
+      "color": "#1a7a48",
+      "country": "🇸🇮 Slovenia",
+      "coords": [
+        46.338,
+        13.551
+      ],
+      "badge": "Emerald river",
+      "goodToKnow": {
+        "currency": "EUR · ~MYR 5.0",
+        "timezone": "UTC+1 · 7h behind SIN",
+        "plug": "Type C / F",
+        "language": "Slovenian",
+        "climate": "5–15°C · ~10 rainy days · alpine, bring waterproof"
+      },
+      "schedule": [
+        "Route: drive from Bolzano along the emerald Soča river, stop often for photos.",
+        "Afternoon: Bovec — kayak (2–3h)."
+      ],
+      "activities": [
+        {
+          "emoji": "🛶",
+          "name": "Soča River kayak",
+          "desc": "Emerald-green water, easy beginner route 2–3h.",
+          "budget": "MYR 90–130/pax",
+          "time": "2–3h",
+          "tags": [
+            "Easy",
+            "Must-do"
+          ],
+          "coords": [
+            46.338,
+            13.551
+          ]
+        },
+        {
+          "emoji": "📸",
+          "name": "Soča riverside drive",
+          "desc": "Stop everywhere to photograph the emerald water, multiple viewpoints.",
+          "budget": "Free",
+          "time": "All day",
+          "tags": [
+            "Free",
+            "Must-do"
+          ],
+          "coords": [
+            46.35,
+            13.58
+          ]
+        }
+      ],
+      "hotels": [
+        {
+          "emoji": "🏨",
+          "name": "Dobra Vila Bovec",
+          "desc": "Bovec's most charming boutique hotel — honeymoon pick.",
+          "price": "MYR 350–550",
+          "tag": "p",
+          "coords": [
+            46.337,
+            13.55
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Hotel Mangart",
+          "desc": "Bovec town center, mountain view room, breakfast included.",
+          "price": "MYR 220–350",
+          "tag": "p",
+          "coords": [
+            46.336,
+            13.553
+          ]
+        },
+        {
+          "emoji": "🏕️",
+          "name": "Kamp Liza Glamping",
+          "desc": "Luxury tent on the Soča river, nature immersion.",
+          "price": "MYR 200–320",
+          "tag": "b",
+          "coords": [
+            46.34,
+            13.558
+          ]
+        },
+        {
+          "emoji": "🏕️",
+          "name": "Adrenaline Check Hostel",
+          "desc": "Private suite, near kayak launch point.",
+          "price": "MYR 130–200",
+          "tag": "b",
+          "coords": [
+            46.336,
+            13.552
+          ]
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Kayak booking",
+          "urgent": true,
+          "note": "Soča Rafting, MYR 90–130/pax"
+        },
+        {
+          "task": "Bovec stay",
+          "urgent": false,
+          "note": "Dobra Vila Bovec recommended"
+        }
+      ],
+      "transportIn": {
+        "icon": "🚗",
+        "label": "Bolzano → Soča Valley (cross border)",
+        "detail": "Drive all the way, 2.5–3h",
+        "price": "Covered by rental",
+        "tip": "Plenty of pull-overs along the river — stop often for photos."
+      },
+      "transportOut": {
+        "icon": "🚗",
+        "label": "Bovec → Lake Bled",
+        "detail": "Drive ~1.5–2h",
+        "price": "Fuel MYR 20–30",
+        "tip": "Lake Bled stays book out fast — reserve 2–3 months ahead!",
+        "nextCoords": [
+          46.363,
+          14.094
+        ]
+      },
+      "photos": [
+        "./img/stop-4/1.jpg",
+        "./img/stop-4/2.jpg",
+        "./img/stop-4/3.jpg",
+        "./img/stop-4/4.jpg"
+      ]
+    },
+    {
+      "n": 5,
+      "name": "Lake Bled",
+      "day": "Day 11",
+      "dates": "Oct 26",
+      "emoji": "🏰",
+      "color": "#1a7a48",
+      "country": "🇸🇮 Slovenia",
+      "coords": [
+        46.363,
+        14.094
+      ],
+      "badge": "Honeymoon dream",
+      "goodToKnow": {
+        "currency": "EUR · ~MYR 5.0",
+        "timezone": "UTC+1 · 7h behind SIN",
+        "plug": "Type C / F",
+        "language": "Slovenian",
+        "climate": "5–15°C · ~9 rainy days · misty mornings, magical"
+      },
+      "schedule": [
+        "En route: Škocjan Caves UNESCO (Divača, on the way).",
+        "Afternoon: Pletna boat to the island church (ring the wishing bell) → Bled Castle overlook.",
+        "Evening: Vintgar Gorge walk (1.5km) → Kremšnita cake by the lake."
+      ],
+      "activities": [
+        {
+          "emoji": "🦎",
+          "name": "Škocjan Caves",
+          "desc": "UNESCO underground canyon, 2h guided tour, in Divača.",
+          "budget": "MYR 60/pax",
+          "time": "2–3h",
+          "tags": [
+            "UNESCO",
+            "On the way"
+          ],
+          "coords": [
+            45.663,
+            13.987
+          ]
+        },
+        {
+          "emoji": "🚣",
+          "name": "Pletna boat to island",
+          "desc": "Honeymoon must-do! Climb 99 steps, ring the bell, make a wish.",
+          "budget": "MYR 45–55/pax",
+          "time": "1.5h",
+          "tags": [
+            "Honeymoon must",
+            "Romantic"
+          ],
+          "coords": [
+            46.362,
+            14.08
+          ]
+        },
+        {
+          "emoji": "🏰",
+          "name": "Bled Castle",
+          "desc": "Panoramic view over Lake Bled + Dolomites.",
+          "budget": "MYR 45/pax",
+          "time": "1h",
+          "tags": [
+            "Must-see",
+            "Easy"
+          ],
+          "coords": [
+            46.369,
+            14.092
+          ]
+        },
+        {
+          "emoji": "🌊",
+          "name": "Vintgar Gorge",
+          "desc": "1.6km wooden boardwalk through the gorge to a waterfall.",
+          "budget": "MYR 25/pax",
+          "time": "1.5h",
+          "tags": [
+            "Easy walk",
+            "Nature"
+          ],
+          "coords": [
+            46.392,
+            14.073
+          ]
+        },
+        {
+          "emoji": "🎂",
+          "name": "Kremšnita cream cake",
+          "desc": "Bled's signature dessert. Park Restaurant is the place.",
+          "budget": "MYR 20–30",
+          "time": "30min",
+          "tags": [
+            "Local treat",
+            "Cheap"
+          ],
+          "coords": [
+            46.362,
+            14.091
+          ]
+        }
+      ],
+      "hotels": [
+        {
+          "emoji": "🏨",
+          "name": "Vila Bled",
+          "desc": "Former presidential residence, lakeside, private pier.",
+          "price": "MYR 900–1,800",
+          "tag": "l",
+          "coords": [
+            46.358,
+            14.082
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Grand Hotel Toplice",
+          "desc": "Oldest lake-view hotel, thermal pool.",
+          "price": "MYR 600–1,000",
+          "tag": "l",
+          "coords": [
+            46.361,
+            14.087
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Hotel Triglav Bled",
+          "desc": "Lakeside boutique, modern design, breakfast included.",
+          "price": "MYR 420–680",
+          "tag": "p",
+          "coords": [
+            46.363,
+            14.088
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Lake Bled Resort",
+          "desc": "Lakefront apartments, best value.",
+          "price": "MYR 280–450",
+          "tag": "b",
+          "coords": [
+            46.365,
+            14.099
+          ]
+        },
+        {
+          "emoji": "🏠",
+          "name": "Penzion Mayer",
+          "desc": "Family-run B&B, 5min walk to lake.",
+          "price": "MYR 180–280",
+          "tag": "b",
+          "coords": [
+            46.368,
+            14.095
+          ]
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Lake Bled stay",
+          "urgent": true,
+          "note": "2–3 months ahead, lake view preferred"
+        },
+        {
+          "task": "Škocjan Caves tickets",
+          "urgent": true,
+          "note": "park-skocjanske-jame.si"
+        },
+        {
+          "task": "Pletna boat",
+          "urgent": false,
+          "note": "Walk up, MYR 45–55/pax"
+        },
+        {
+          "task": "Vintgar Gorge",
+          "urgent": false,
+          "note": "Buy at gate, MYR 25/pax"
+        }
+      ],
+      "transportIn": {
+        "icon": "🚗",
+        "label": "Via Škocjan Caves → Lake Bled",
+        "detail": "From Bovec, stop at Divača (2h), then Bled. Total ~3–4h.",
+        "price": "Covered by rental",
+        "tip": "Škocjan Caves is in Divača — perfectly on the way!"
+      },
+      "transportOut": {
+        "icon": "🚌",
+        "label": "Ljubljana → Salzburg (FlixBus)",
+        "detail": "Drive to Ljubljana (45min), Park & Ride, FlixBus ~3h",
+        "price": "MYR 65–100",
+        "book": "https://www.flixbus.com",
+        "tip": "Ljubljana Park & Ride MYR 15/day. Return car, catch FlixBus.",
+        "nextCoords": [
+          47.801,
+          13.045
+        ]
+      },
+      "photos": [
+        "./img/stop-5/1.jpg",
+        "./img/stop-5/2.jpg",
+        "./img/stop-5/3.jpg",
+        "./img/stop-5/4.jpg"
+      ]
+    },
+    {
+      "n": 6,
+      "name": "Salzburg + Hallstatt",
+      "day": "Day 12–13",
+      "dates": "Oct 27–28",
+      "emoji": "🎵",
+      "color": "#1a4fa8",
+      "country": "🇦🇹 Austria",
+      "coords": [
+        47.801,
+        13.045
+      ],
+      "badge": "Austria",
+      "goodToKnow": {
+        "currency": "EUR · ~MYR 5.0",
+        "timezone": "UTC+1 · 7h behind SIN",
+        "plug": "Type C / F",
+        "language": "German",
+        "climate": "4–14°C · ~8 rainy days · crisp autumn, fall foliage"
+      },
+      "schedule": [
+        "Day 12: FlixBus arrival, evening Hohensalzburg fortress at golden hour.",
+        "Day 13: → Hallstatt day trip! Drive 1.5h, UNESCO fairytale village.",
+        "Evening: Salzburg → Vienna on Railjet high-speed."
+      ],
+      "activities": [
+        {
+          "emoji": "🏰",
+          "name": "Hohensalzburg fortress",
+          "desc": "Panoramic view of Salzburg, best at sunset, funicular up.",
+          "budget": "Funicular MYR 45/pax",
+          "time": "2h",
+          "tags": [
+            "Must-see",
+            "Sunset"
+          ],
+          "coords": [
+            47.795,
+            13.047
+          ]
+        },
+        {
+          "emoji": "🌸",
+          "name": "Mirabell Gardens",
+          "desc": "Sound of Music filming location. Free.",
+          "budget": "Free",
+          "time": "45min",
+          "tags": [
+            "Free",
+            "Insta-spot"
+          ],
+          "coords": [
+            47.804,
+            13.042
+          ]
+        },
+        {
+          "emoji": "🏘️",
+          "name": "Hallstatt day trip",
+          "desc": "UNESCO fairytale village! Colorful houses + lake + ancient salt mine.",
+          "budget": "Fuel MYR 30",
+          "time": "Full day",
+          "tags": [
+            "UNESCO",
+            "Must-see",
+            "Romantic"
+          ],
+          "coords": [
+            47.562,
+            13.649
+          ]
+        },
+        {
+          "emoji": "🎶",
+          "name": "Mozart's birthplace",
+          "desc": "Where the genius was born — museum 1–1.5h.",
+          "budget": "MYR 45/pax",
+          "time": "1–1.5h",
+          "tags": [
+            "Culture",
+            "Indoor"
+          ],
+          "coords": [
+            47.8,
+            13.044
+          ]
+        }
+      ],
+      "hotels": [
+        {
+          "emoji": "🏨",
+          "name": "Hotel Sacher Salzburg",
+          "desc": "Birthplace of Sacher cake, riverside view rooms.",
+          "price": "MYR 900–1,600",
+          "tag": "l",
+          "coords": [
+            47.8,
+            13.044
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Schloss Mönchstein",
+          "desc": "Hilltop castle hotel, panoramic view, most romantic.",
+          "price": "MYR 1,100–2,200",
+          "tag": "l",
+          "coords": [
+            47.798,
+            13.04
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Arte Vida Boutique Hotel",
+          "desc": "5-min walk to old town, 4-star boutique.",
+          "price": "MYR 380–580",
+          "tag": "p",
+          "coords": [
+            47.799,
+            13.043
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Hotel Mozart",
+          "desc": "3-min walk to Mozart's birthplace.",
+          "price": "MYR 250–380",
+          "tag": "b",
+          "coords": [
+            47.799,
+            13.045
+          ]
+        },
+        {
+          "emoji": "🏠",
+          "name": "YOHO International Youth Hostel",
+          "desc": "Old town private double, breakfast included.",
+          "price": "MYR 150–240",
+          "tag": "b",
+          "coords": [
+            47.801,
+            13.048
+          ]
+        }
+      ],
+      "checklist": [
+        {
+          "task": "ÖBB Railjet ticket",
+          "urgent": true,
+          "note": "oebb.at, early-bird deals"
+        },
+        {
+          "task": "Salzburg stay (2 nights)",
+          "urgent": true,
+          "note": "Old town is best"
+        },
+        {
+          "task": "Hallstatt parking",
+          "urgent": false,
+          "note": "Arrive early — limited!"
+        }
+      ],
+      "transportIn": {
+        "icon": "🚌",
+        "label": "FlixBus arrival in Salzburg",
+        "detail": "From Ljubljana ~3h",
+        "price": "MYR 65–100",
+        "tip": "Salzburg city walking distance."
+      },
+      "transportOut": {
+        "icon": "🚄",
+        "label": "Salzburg → Vienna (ÖBB Railjet)",
+        "detail": "~2h 22min, hourly departures",
+        "price": "MYR 80–200",
+        "book": "https://www.oebb.at",
+        "tip": "Super early-bird tickets can be MYR 15/pax! Book 2–3 months ahead.",
+        "nextCoords": [
+          48.208,
+          16.371
+        ]
+      },
+      "photos": [
+        "./img/stop-6/1.jpg",
+        "./img/stop-6/2.jpg",
+        "./img/stop-6/3.jpg",
+        "./img/stop-6/4.jpg"
+      ]
+    },
+    {
+      "n": 7,
+      "name": "Vienna",
+      "day": "Day 14–17",
+      "dates": "Oct 29 – Nov 1",
+      "emoji": "🎭",
+      "color": "#1a4fa8",
+      "country": "🇦🇹 Austria",
+      "coords": [
+        48.208,
+        16.371
+      ],
+      "badge": "Final stop ✈️",
+      "goodToKnow": {
+        "currency": "EUR · ~MYR 5.0",
+        "timezone": "UTC+1 · 7h behind SIN",
+        "plug": "Type C / F",
+        "language": "German",
+        "climate": "5–15°C · ~6 rainy days · ideal for café days"
+      },
+      "schedule": [
+        "D14: Railjet arrival → Naschmarkt dinner.",
+        "D15: Schönbrunn Palace → Belvedere + Klimt's The Kiss.",
+        "D16: Museum Quarter, Prater park, café culture.",
+        "Nov 1: 9:00am VIE → SIN, Nov 2 8:45am arrival."
+      ],
+      "activities": [
+        {
+          "emoji": "🏰",
+          "name": "Schönbrunn Palace",
+          "desc": "Austria's grandest palace, gardens free. Pre-book the Grand Tour.",
+          "budget": "MYR 80/pax",
+          "time": "3h",
+          "tags": [
+            "Must-see",
+            "Book ahead"
+          ],
+          "coords": [
+            48.185,
+            16.312
+          ]
+        },
+        {
+          "emoji": "🌹",
+          "name": "Belvedere · Klimt's 'The Kiss'",
+          "desc": "The Klimt original is here! Baroque gardens included.",
+          "budget": "MYR 70/pax",
+          "time": "2h",
+          "tags": [
+            "Art must-see",
+            "Romantic"
+          ],
+          "coords": [
+            48.192,
+            16.381
+          ]
+        },
+        {
+          "emoji": "☕",
+          "name": "Vienna café culture",
+          "desc": "Café Central or Café Sacher — Melange coffee + Sacher cake.",
+          "budget": "MYR 40–60/pax",
+          "time": "1h",
+          "tags": [
+            "Local must",
+            "Romantic"
+          ],
+          "coords": [
+            48.208,
+            16.365
+          ]
+        },
+        {
+          "emoji": "🎡",
+          "name": "Prater Ferris wheel",
+          "desc": "Vienna skyline, 100-year-old historic ride.",
+          "budget": "MYR 40/pax",
+          "time": "1h",
+          "tags": [
+            "Insta-spot",
+            "Easy"
+          ],
+          "coords": [
+            48.217,
+            16.397
+          ]
+        },
+        {
+          "emoji": "🛍️",
+          "name": "Naschmarkt",
+          "desc": "Vienna's biggest open-air market — food, spices, vibes.",
+          "budget": "Pay-as-you-go",
+          "time": "2h",
+          "tags": [
+            "Local",
+            "Food"
+          ],
+          "coords": [
+            48.199,
+            16.364
+          ]
+        }
+      ],
+      "hotels": [
+        {
+          "emoji": "🏨",
+          "name": "Hotel Sacher Wien",
+          "desc": "170-year history, Sacher cake, 1min walk to State Opera.",
+          "price": "MYR 1,200–2,500",
+          "tag": "l",
+          "coords": [
+            48.203,
+            16.369
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Park Hyatt Vienna",
+          "desc": "Converted bank building, peak luxury, golden square.",
+          "price": "MYR 1,500–3,500",
+          "tag": "l",
+          "coords": [
+            48.209,
+            16.368
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Hotel Altstadt Vienna",
+          "desc": "Designer boutique, every room different.",
+          "price": "MYR 500–800",
+          "tag": "p",
+          "coords": [
+            48.202,
+            16.355
+          ]
+        },
+        {
+          "emoji": "🏨",
+          "name": "Ruby Lissi Hotel",
+          "desc": "Stylish boutique near Belvedere, breakfast included.",
+          "price": "MYR 280–420",
+          "tag": "b",
+          "coords": [
+            48.196,
+            16.373
+          ]
+        },
+        {
+          "emoji": "🏠",
+          "name": "Wombat's City Hostel Vienna",
+          "desc": "Private double near Naschmarkt, cheapest option.",
+          "price": "MYR 150–250",
+          "tag": "b",
+          "coords": [
+            48.199,
+            16.36
+          ]
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Schönbrunn tickets",
+          "urgent": true,
+          "note": "schoenbrunn.at, MYR 80/pax"
+        },
+        {
+          "task": "Belvedere tickets",
+          "urgent": true,
+          "note": "belvedere.at, MYR 70/pax"
+        },
+        {
+          "task": "Vienna stay (4 nights)",
+          "urgent": true,
+          "note": "District 1 or Ring Road"
+        },
+        {
+          "task": "Vienna City Card",
+          "urgent": false,
+          "note": "72h MYR 90"
+        },
+        {
+          "task": "Scoot VIE→SIN flight",
+          "urgent": true,
+          "note": "flyscoot.com, Nov 1 9am"
+        },
+        {
+          "task": "VIE airport transfer",
+          "urgent": false,
+          "note": "CAT 16min MYR 60"
+        }
+      ],
+      "transportIn": {
+        "icon": "🚄",
+        "label": "Railjet arrival in Vienna",
+        "detail": "From Salzburg ~2h 22min",
+        "price": "Included",
+        "tip": "Vienna City Card is worth it."
+      },
+      "transportOut": {
+        "icon": "✈️",
+        "label": "Vienna (VIE) → Singapore (SIN)",
+        "detail": "Scoot direct, Nov 1 9am departure, Nov 2 8:45am arrival",
+        "price": "MYR 600–900/pax",
+        "book": "https://www.flyscoot.com",
+        "tip": "Be at VIE 3–3.5h early. CAT express 16min (MYR 60).",
+        "nextCoords": null
+      },
+      "photos": [
+        "./img/stop-7/1.jpg",
+        "./img/stop-7/2.jpg",
+        "./img/stop-7/3.jpg",
+        "./img/stop-7/4.jpg"
+      ]
+    }
+  ]
+};
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+/* ─── URL BUILDERS (action links) ─── */
+function stopCity(stop) {
+  return stop.name.replace(/Hub|hub/g, '').trim();
+}
+function stopCountryEn(stop) {
+  return (stop.country || '').replace(/[^A-Za-z ]/g, '').trim();
+}
+function mapsUrl(name, stop, coords) {
+  if (coords && coords.length === 2) {
+    // Query with name biases Google to the right place + shows reviews
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + stopCity(stop))}&query_place_id=&center=${coords[0]},${coords[1]}`;
+  }
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + stopCity(stop))}`;
+}
+function bookingUrl(hotelName, stop) {
+  const q = `${hotelName} ${stopCity(stop)}`;
+  return `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(q)}`;
+}
+function compareHotelsUrl(hotelName, stop) {
+  const q = `${hotelName} ${stopCity(stop)}`;
+  return `https://www.google.com/travel/hotels?q=${encodeURIComponent(q)}`;
+}
+function getYourGuideUrl(name, stop) {
+  const q = `${name} ${stopCity(stop)}`;
+  return `https://www.getyourguide.com/s/?q=${encodeURIComponent(q)}`;
+}
+function tripadvisorUrl(name, stop) {
+  const q = `${name} ${stopCity(stop)}`;
+  return `https://www.tripadvisor.com/Search?q=${encodeURIComponent(q)}`;
+}
+
+/* ─── WIKIPEDIA LAZY FETCH (no key, with localStorage cache) ─── */
+const WIKI_MEDIA_KEY = 'wiki-media-cache-v2';
+let wikiMediaCache = {};
+try { wikiMediaCache = JSON.parse(localStorage.getItem(WIKI_MEDIA_KEY) || '{}'); } catch (e) {}
+function _saveWikiCache() { try { localStorage.setItem(WIKI_MEDIA_KEY, JSON.stringify(wikiMediaCache)); } catch (e) {} }
+
+// Fetch up to 5 image URLs from a Wikipedia article's media list
+async function fetchWikiMediaList(title) {
+  const key = title.toLowerCase().trim();
+  if (key in wikiMediaCache) return wikiMediaCache[key];
+  try {
+    const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/media-list/${encodeURIComponent(title)}`);
+    if (!r.ok) { wikiMediaCache[key] = []; _saveWikiCache(); return []; }
+    const data = await r.json();
+    const urls = (data.items || [])
+      .filter(it => it.type === 'image' && it.srcset && it.srcset.length && !/\.(svg|ogv|webm|gif|tiff?)/i.test(it.title || ''))
+      .slice(0, 6)
+      .map(it => {
+        // Use the LARGEST entry Wikipedia actually generated (don't guess sizes — they 400)
+        const largest = it.srcset[it.srcset.length - 1];
+        let src = largest.src;
+        if (!src.startsWith('http')) src = 'https:' + src;
+        return src;
+      });
+    wikiMediaCache[key] = urls;
+    _saveWikiCache();
+    return urls;
+  } catch (e) { wikiMediaCache[key] = []; _saveWikiCache(); return []; }
+}
+
+// Backward-compat single-thumb (used by detail panel hero) — picks first from media list
+async function fetchWikiThumb(title) {
+  const list = await fetchWikiMediaList(title);
+  return list[0] || null;
+}
+function el(tag, attrs = {}, ...children) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === 'class') n.className = v;
+    else if (k === 'html') n.innerHTML = v;
+    else if (k.startsWith('on') && typeof v === 'function') n.addEventListener(k.slice(2).toLowerCase(), v);
+    else n.setAttribute(k, v);
+  }
+  for (const c of children.flat()) { if (c == null) continue; n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }
+  return n;
+}
+const STORAGE_PREFIX = `trip-${TRIP.repoFolder}-`;
+function lsGet(k, fb = null) { try { const v = localStorage.getItem(STORAGE_PREFIX + k); return v == null ? fb : JSON.parse(v); } catch (e) { return fb; } }
+function lsSet(k, v) { try { localStorage.setItem(STORAGE_PREFIX + k, JSON.stringify(v)); } catch (e) {} }
+
+/* ─── THEME ─── */
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  $('#themeToggle').textContent = t === 'dark' ? '🌙' : '☀️';
+  if (window._mapTiles) applyMapStyle(window._currentMapStyle || 'editorial');
+}
+function initTheme() {
+  const saved = lsGet('theme');
+  const sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  applyTheme(saved || sys);
+  $('#themeToggle').addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    lsSet('theme', next);
+    applyTheme(next);
+  });
+}
+
+/* ─── BUDGET PARSING ─── */
+function parsePrice(s) {
+  if (!s) return null;
+  const txt = String(s);
+  if (/免費|free|included|已含/i.test(txt)) return 0;
+  const nums = txt.match(/[\d,]+(?:\.\d+)?/g);
+  if (!nums) return null;
+  const p = nums.map(n => parseFloat(n.replace(/,/g, '')));
+  return p.length === 1 ? p[0] : (p[0] + p[1]) / 2;
+}
+function nightsForStop(s) {
+  const m = String(s.day || '').match(/(\d+)\s*[-–]\s*(\d+)/);
+  return m ? Math.max(1, parseInt(m[2]) - parseInt(m[1]) + 1) : 1;
+}
+function fmt(n) { return n.toLocaleString('en-US'); }
+function computeBudget() {
+  let a = 0, h = 0, t = 0;
+  TRIP.stops.forEach(stop => {
+    (stop.activities || []).forEach(x => { const p = parsePrice(x.budget); if (p) a += p * (TRIP.travelers || 1); });
+    const prices = (stop.hotels || []).map(x => parsePrice(x.price)).filter(p => p);
+    if (prices.length) { prices.sort((x, y) => x - y); h += prices[Math.floor(prices.length / 2)] * nightsForStop(stop); }
+    [stop.transportIn, stop.transportOut].forEach(x => {
+      if (!x) return;
+      const p = parsePrice(x.price);
+      if (p) t += p * (/per|pax|人/.test(String(x.price)) ? (TRIP.travelers || 1) : 1);
+    });
+  });
+  return { activities: Math.round(a), hotels: Math.round(h), transport: Math.round(t), grand: Math.round(a + h + t) };
+}
+
+/* ─── COUNTDOWN ─── */
+function renderCountdown() {
+  const target = new Date(TRIP.countdownTarget).getTime();
+  const diff = target - Date.now();
+  const num = $('#countdown .cover-countdown-num');
+  const label = $('#countdown span:last-child');
+  if (diff <= 0) {
+    const tripEnd = TRIP.tripEndDate ? new Date(TRIP.tripEndDate).getTime() : (target + 1000*60*60*24*30);
+    if (Date.now() < tripEnd) { num.textContent = '✨'; label.textContent = 'on the trip'; }
+    else { num.textContent = '🎉'; label.textContent = 'memories made'; }
+    return;
+  }
+  const days = Math.floor(diff / (1000*60*60*24));
+  num.textContent = days;
+  label.textContent = days === 1 ? 'day until' : 'days until';
+}
+
+/* ─── HEADER / COVER / STATS ─── */
+function renderHeader() {
+  document.title = TRIP.title;
+  $('#brandEmoji').textContent = (TRIP.stops[0]?.emoji) || '✈️';
+  $('#brandText').textContent = TRIP.title;
+  $('#brandSub').textContent = `${TRIP.dates} · ${TRIP.duration}`;
+}
+function renderCover() {
+  $('#coverTitle').textContent = TRIP.title;
+  $('#coverDates').textContent = `${TRIP.dates} · ${TRIP.duration}`;
+  $('#coverBadge').textContent = TRIP.coverBadge || (TRIP.travelers === 2 ? 'Honeymoon · 2 travelers' : `${TRIP.travelers} travelers`);
+  const first = TRIP.stops[0];
+  if (first?.photos?.[0]) {
+    const img = $('#coverImg');
+    const wrap = img.parentElement; // .cover-img
+    img.onload = () => { wrap.classList.add('is-loaded'); };
+    img.onerror = () => { wrap.classList.add('is-loaded'); }; // remove skeleton even on error
+    img.src = first.photos[0];
+  }
+}
+function renderStats() {
+  $('#statStops').textContent = TRIP.stops.length;
+  $('#statCountries').textContent = TRIP.countries.length;
+  const days = TRIP.duration ? parseInt(TRIP.duration) : TRIP.stops.length;
+  $('#statDays').textContent = days || TRIP.stops.length;
+
+  const row = $('#countriesRow');
+  row.innerHTML = '';
+  TRIP.countries.forEach(c => {
+    row.appendChild(el('span', { class: 'country-chip' },
+      el('span', { class: 'country-dot', style: `background: ${c.color}` }),
+      `${c.flag} ${c.name}`
+    ));
+  });
+}
+function renderBudget() {
+  const b = computeBudget();
+  $('#budgetCard').innerHTML = `
+    <div class="budget-head">
+      <span class="budget-title">Estimated Budget</span>
+      <span class="budget-currency">${TRIP.currency} · ${TRIP.travelers} pax</span>
+    </div>
+    <div class="budget-rows">
+      <div class="budget-row"><span>🎯 Activities</span><strong>${TRIP.currency} ${fmt(b.activities)}</strong></div>
+      <div class="budget-row"><span>🏨 Hotels (median × nights)</span><strong>${TRIP.currency} ${fmt(b.hotels)}</strong></div>
+      <div class="budget-row"><span>🚄 Transport</span><strong>${TRIP.currency} ${fmt(b.transport)}</strong></div>
+    </div>
+    <div class="budget-total">
+      <span class="budget-total-label">Grand Total</span>
+      <span class="budget-total-amount">${TRIP.currency} ${fmt(b.grand)}</span>
+    </div>
+    <p class="budget-foot">* Rough estimate. Excludes flights, meals, shopping. Hotels use median of listed options.</p>
+  `;
+}
+
+/* ─── BOOKING TRACKER ─── */
+const bookings = lsGet('bookings', {});
+function bookingKey(stopIdx, taskIdx) { return `${stopIdx}-${taskIdx}`; }
+function isBooked(stopIdx, taskIdx) { return !!bookings[bookingKey(stopIdx, taskIdx)]; }
+function setBooked(stopIdx, taskIdx, v) { bookings[bookingKey(stopIdx, taskIdx)] = v; lsSet('bookings', bookings); }
+
+function countBookings() {
+  let total = 0, done = 0, urgentLeft = 0;
+  TRIP.stops.forEach((stop, i) => {
+    (stop.checklist || []).forEach((t, j) => {
+      total++;
+      if (isBooked(i, j)) done++;
+      else if (t.urgent) urgentLeft++;
+    });
+  });
+  return { total, done, urgentLeft, pct: total === 0 ? 0 : Math.round(done / total * 100) };
+}
+function renderBookingCard() {
+  const c = countBookings();
+  const circ = 2 * Math.PI * 18; // r=18
+  const offset = circ * (1 - c.pct / 100);
+  $('#bookingCard').innerHTML = `
+    <div class="booking-circle">
+      <svg viewBox="0 0 44 44">
+        <circle class="booking-track" cx="22" cy="22" r="18" />
+        <circle class="booking-fill" cx="22" cy="22" r="18" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" />
+      </svg>
+      <div class="booking-pct">${c.pct}%</div>
+    </div>
+    <div class="booking-body">
+      <div class="booking-title">Booking Progress</div>
+      <div class="booking-detail">
+        ${c.done} of ${c.total} booked
+        ${c.urgentLeft > 0 ? `<span class="urgent">· ${c.urgentLeft} urgent left</span>` : ''}
+      </div>
+    </div>
+  `;
+}
+function unbookedUrgent(stopIdx) {
+  return (TRIP.stops[stopIdx].checklist || []).filter((t, j) => t.urgent && !isBooked(stopIdx, j)).length;
+}
+
+/* ─── PACKING LIST ─── */
+const packed = lsGet('packed', {});
+const customPacking = lsGet('customPacking', {}); // {categoryIdx: ["item1", "item2"]}
+
+function packingKey(catIdx, itemIdx, custom) { return `${custom ? 'c' : 'd'}-${catIdx}-${itemIdx}`; }
+function isPacked(key) { return !!packed[key]; }
+function setPacked(key, v) { packed[key] = v; lsSet('packed', packed); }
+
+function getPackingCategories() {
+  const base = TRIP.packingList || [];
+  return base.map((cat, catIdx) => ({
+    category: cat.category,
+    catIdx,
+    defaults: cat.items || [],
+    custom: customPacking[catIdx] || [],
+  }));
+}
+
+function countPacking() {
+  let total = 0, done = 0;
+  getPackingCategories().forEach(cat => {
+    cat.defaults.forEach((_, i) => { total++; if (isPacked(packingKey(cat.catIdx, i, false))) done++; });
+    cat.custom.forEach((_, i) => { total++; if (isPacked(packingKey(cat.catIdx, i, true))) done++; });
+  });
+  return { total, done, left: total - done, pct: total === 0 ? 0 : Math.round(done / total * 100) };
+}
+
+function renderPackingCard() {
+  if (!TRIP.packingList || TRIP.packingList.length === 0) { $('#packingCard').style.display = 'none'; return; }
+  const c = countPacking();
+  const circ = 2 * Math.PI * 18;
+  const offset = circ * (1 - c.pct / 100);
+  const card = $('#packingCard');
+  const wasOpen = card.classList.contains('is-open');
+  card.innerHTML = `
+    <button class="packing-head" onclick="togglePacking()" aria-expanded="${wasOpen}" aria-controls="packingExpanded">
+      <div class="packing-circle">
+        <svg viewBox="0 0 44 44" aria-hidden="true">
+          <circle class="packing-track" cx="22" cy="22" r="18" />
+          <circle class="packing-fill" cx="22" cy="22" r="18" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" />
+        </svg>
+        <div class="packing-pct">${c.pct}%</div>
+      </div>
+      <div class="packing-body">
+        <div class="packing-title-row">
+          <span class="packing-title">Packing List</span>
+          <span class="packing-chevron" aria-hidden="true">▾</span>
+        </div>
+        <div class="packing-detail">
+          ${c.done} of ${c.total} packed
+          ${c.left > 0 ? `· <span class="left">${c.left} left</span>` : ''}
+        </div>
+      </div>
+    </button>
+    <div class="packing-body-expanded" id="packingExpanded">${renderPackingExpanded()}</div>
+  `;
+  if (wasOpen) card.classList.add('is-open');
+}
+
+function renderPackingExpanded() {
+  return getPackingCategories().map(cat => {
+    const defaultItems = cat.defaults.map((item, i) => {
+      const k = packingKey(cat.catIdx, i, false);
+      const checked = isPacked(k);
+      return `<li class="packing-item ${checked ? 'is-checked' : ''}">
+        <span class="packing-checkbox ${checked ? 'is-checked' : ''}" role="checkbox" tabindex="0" aria-checked="${checked}" aria-labelledby="pk-lbl-${k}" onclick="togglePack('${k}',this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();togglePack('${k}',this);}"></span>
+        <span class="packing-label" id="pk-lbl-${k}" onclick="togglePack('${k}',this.previousElementSibling)">${escapeHtml(item)}</span>
+      </li>`;
+    }).join('');
+    const customItems = cat.custom.map((item, i) => {
+      const k = packingKey(cat.catIdx, i, true);
+      const checked = isPacked(k);
+      return `<li class="packing-item is-custom ${checked ? 'is-checked' : ''}">
+        <span class="packing-checkbox ${checked ? 'is-checked' : ''}" role="checkbox" tabindex="0" aria-checked="${checked}" aria-labelledby="pk-lbl-${k}" onclick="togglePack('${k}',this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();togglePack('${k}',this);}"></span>
+        <span class="packing-label" id="pk-lbl-${k}" onclick="togglePack('${k}',this.previousElementSibling)">${escapeHtml(item)}</span>
+        <button class="packing-remove" onclick="removeCustomPackingItem(${cat.catIdx}, ${i})" title="Remove" aria-label="Remove ${escapeHtml(item)}"><span aria-hidden="true">×</span></button>
+      </li>`;
+    }).join('');
+    return `<div class="packing-category">
+      <div class="packing-category-title">${escapeHtml(cat.category)}</div>
+      <ul class="packing-items">${defaultItems}${customItems}</ul>
+      <div class="packing-add-row">
+        <input class="packing-add-input" type="text" placeholder="Add item..." aria-label="Add custom item to ${escapeHtml(cat.category)}" onkeydown="if(event.key==='Enter'){event.preventDefault();addCustomPackingItem(${cat.catIdx},this);}" />
+        <button class="packing-add-btn" onclick="addCustomPackingItem(${cat.catIdx}, this.previousElementSibling)" aria-label="Add"><span aria-hidden="true">+</span></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.togglePacking = function() {
+  const card = $('#packingCard');
+  card.classList.toggle('is-open');
+  const btn = card.querySelector('.packing-head');
+  if (btn) btn.setAttribute('aria-expanded', card.classList.contains('is-open'));
+};
+window.togglePack = function(key, checkboxEl) {
+  const newVal = !isPacked(key);
+  setPacked(key, newVal);
+  checkboxEl.classList.toggle('is-checked', newVal);
+  checkboxEl.setAttribute('aria-checked', newVal);
+  checkboxEl.closest('.packing-item').classList.toggle('is-checked', newVal);
+  // Update the ring + counter without re-rendering the whole list
+  const c = countPacking();
+  const circ = 2 * Math.PI * 18;
+  const offset = circ * (1 - c.pct / 100);
+  const fill = $('#packingCard .packing-fill');
+  const pct = $('#packingCard .packing-pct');
+  const detail = $('#packingCard .packing-detail');
+  if (fill) fill.setAttribute('stroke-dashoffset', offset);
+  if (pct) pct.textContent = `${c.pct}%`;
+  if (detail) detail.innerHTML = `${c.done} of ${c.total} packed${c.left > 0 ? ` · <span class="left">${c.left} left</span>` : ''}`;
+};
+window.addCustomPackingItem = function(catIdx, inputEl) {
+  const text = inputEl.value.trim();
+  if (!text) return;
+  if (!customPacking[catIdx]) customPacking[catIdx] = [];
+  customPacking[catIdx].push(text);
+  lsSet('customPacking', customPacking);
+  inputEl.value = '';
+  renderPackingCard();
+  $('#packingCard').classList.add('is-open');
+};
+window.removeCustomPackingItem = function(catIdx, customIdx) {
+  if (!customPacking[catIdx]) return;
+  // Also delete its packed state
+  const oldKey = packingKey(catIdx, customIdx, true);
+  delete packed[oldKey];
+  // Shift packed state for subsequent custom items in same category
+  const list = customPacking[catIdx];
+  for (let i = customIdx + 1; i < list.length; i++) {
+    const oldK = packingKey(catIdx, i, true);
+    const newK = packingKey(catIdx, i - 1, true);
+    if (packed[oldK]) { packed[newK] = true; delete packed[oldK]; }
+  }
+  list.splice(customIdx, 1);
+  lsSet('customPacking', customPacking);
+  lsSet('packed', packed);
+  renderPackingCard();
+  $('#packingCard').classList.add('is-open');
+};
+
+/* ─── STOPS LIST ─── */
+function renderStopsList() {
+  const list = $('#stopsList');
+  list.innerHTML = '';
+  TRIP.stops.forEach((stop, i) => {
+    const warnCount = unbookedUrgent(i);
+    const card = el('li', {
+      class: 'stop-card', 'data-stop-index': i,
+      tabindex: '0', role: 'button',
+      'aria-label': `Open details for stop ${stop.n}: ${stop.name}`,
+      onClick: () => selectStop(i),
+      onKeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectStop(i); } }
+    },
+      el('div', { class: 'stop-num', style: `background: ${stop.color}` }, String(stop.n)),
+      el('div', { class: 'stop-body' },
+        el('div', { class: 'stop-header' },
+          el('span', { class: 'stop-emoji' }, stop.emoji || ''),
+          el('span', { class: 'stop-name' }, stop.name)
+        ),
+        el('div', { class: 'stop-meta' },
+          el('span', {}, stop.day || ''),
+          stop.dates ? el('span', { class: 'stop-meta-sep' }) : null,
+          el('span', {}, stop.dates || '')
+        ),
+        stop.badge ? el('span', { class: 'stop-badge' }, stop.badge) : null
+      ),
+      warnCount > 0 ? el('span', { class: 'stop-card-warn is-shown' }, `${warnCount} to book`) : null
+    );
+    list.appendChild(card);
+  });
+}
+function refreshStopWarnings() {
+  $$('.stop-card').forEach((card, i) => {
+    const warn = unbookedUrgent(i);
+    let warnEl = card.querySelector('.stop-card-warn');
+    if (warn > 0) {
+      if (!warnEl) { warnEl = el('span', { class: 'stop-card-warn is-shown' }); card.appendChild(warnEl); }
+      warnEl.textContent = `${warn} to book`;
+      warnEl.title = `${warn} urgent item${warn === 1 ? '' : 's'} not yet booked`;
+      warnEl.classList.add('is-shown');
+    } else if (warnEl) {
+      warnEl.classList.remove('is-shown');
+    }
+  });
+}
+
+/* ─── MAP ─── */
+let map, stopMarkers = [], poiMarkers = [], routeLine, currentStopIdx = -1;
+const MAP_STYLES = {
+  editorial: {
+    light: { url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', attr: '&copy; OSM &copy; CARTO', sub: 'abcd' },
+    dark:  { url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',  attr: '&copy; OSM &copy; CARTO', sub: 'abcd' }
+  },
+  watercolor: {
+    light: { url: 'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg', attr: '&copy; Stadia Maps &copy; Stamen &copy; OSM', sub: 'abcd' },
+    dark:  { url: 'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg', attr: '&copy; Stadia Maps &copy; Stamen &copy; OSM', sub: 'abcd' }
+  },
+  satellite: {
+    light: { url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr: 'Tiles &copy; Esri', sub: 'abc' },
+    dark:  { url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr: 'Tiles &copy; Esri', sub: 'abc' }
+  }
+};
+function applyMapStyle(name) {
+  if (!map) return;
+  // Guard: fall back to editorial if name is unknown (e.g. removed style still in localStorage)
+  if (!MAP_STYLES[name]) name = 'editorial';
+  window._currentMapStyle = name;
+  lsSet('mapstyle', name);
+  const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const cfg = MAP_STYLES[name][t];
+  if (window._mapTiles) map.removeLayer(window._mapTiles);
+  window._mapTiles = L.tileLayer(cfg.url, { attribution: cfg.attr, subdomains: cfg.sub, maxZoom: 19 }).addTo(map);
+  $$('.style-btn').forEach(b => b.classList.toggle('is-active', b.dataset.style === name));
+}
+function initMap() {
+  map = L.map('map', { zoomControl: true, attributionControl: true, zoomSnap: 0.5 });
+  applyMapStyle(lsGet('mapstyle') || 'editorial');
+  TRIP.stops.forEach((stop, i) => {
+    const icon = L.divIcon({
+      className: 'stop-marker',
+      html: `<div class="stop-marker-inner" style="background: ${stop.color}">${stop.n}</div>`,
+      iconSize: [40, 40], iconAnchor: [20, 20]
+    });
+    const m = L.marker(stop.coords, { icon, riseOnHover: true }).addTo(map);
+    m.on('click', () => selectStop(i));
+    stopMarkers.push(m);
+  });
+
+  // Zoom out gently on popup close — stay close enough to see neighboring POIs,
+  // not all the way back to "fit all stop POIs" (which can be too far on big stops like Sorrento + Capri).
+  map.on('popupclose', () => {
+    if (currentStopIdx < 0) return;
+    const currentZoom = map.getZoom();
+    // Step back 1.5 zoom levels. Floor at 13 (still see most neighbors in a city/area).
+    const targetZoom = Math.max(13, currentZoom - 1.5);
+    map.flyTo(map.getCenter(), targetZoom, { duration: 0.5, easeLinearity: 0.4 });
+  });
+  routeLine = L.polyline(TRIP.stops.map(s => s.coords), {
+    color: '#8b8479', weight: 2.5, opacity: 0.7, dashArray: '6, 8', lineCap: 'round', lineJoin: 'round'
+  }).addTo(map);
+  fitAllStops();
+  renderLegend();
+  $('#mapReset').addEventListener('click', () => {
+    currentStopIdx = -1;
+    fitAllStops();
+    clearPois();
+    closeDetail();
+    updateActiveMarker(-1);
+    $('#mapReset').classList.remove('is-visible');
+  });
+  $$('.style-btn').forEach(b => b.addEventListener('click', () => applyMapStyle(b.dataset.style)));
+}
+function renderLegend() {
+  $('#mapLegend').innerHTML = TRIP.countries.map(c =>
+    `<div class="legend-row"><span class="legend-dot" style="background:${c.color}"></span>${c.flag} ${c.name}</div>`
+  ).join('');
+}
+function fitAllStops() {
+  if (!TRIP.stops.length) return;
+  map.fitBounds(L.latLngBounds(TRIP.stops.map(s => s.coords)), { padding: [60, 60], maxZoom: 7 });
+}
+function updateActiveMarker(idx) {
+  stopMarkers.forEach((m, i) => {
+    const e = m._icon;
+    if (e) e.classList.toggle('is-active', i === idx);
+  });
+  $$('.stop-card').forEach((c, i) => c.classList.toggle('is-active', i === idx));
+}
+function clearPois() { poiMarkers.forEach(m => map.removeLayer(m)); poiMarkers = []; }
+
+function buildPoiPopupHtml(item, stop, isHotel, itemKey) {
+  const tags = isHotel ? tagFromTier(item.tag) : (item.tags || []);
+  const tagsHtml = tags.map(t => `<span class="poi-popup-tag">${escapeHtml(t)}</span>`).join('');
+  const price = isHotel ? item.price : item.budget;
+  const meta = [
+    price ? `<span class="poi-popup-tag">💰 ${escapeHtml(price)}</span>` : '',
+    item.time ? `<span class="poi-popup-tag">⏱ ${escapeHtml(item.time)}</span>` : '',
+    tagsHtml,
+  ].filter(Boolean).join('');
+  const actions = [
+    `<a class="action-btn" href="${mapsUrl(item.name, stop, item.coords)}" target="_blank" rel="noopener"><span class="action-btn-icon">📍</span>Maps</a>`,
+    isHotel
+      ? `<a class="action-btn" href="${bookingUrl(item.name, stop)}" target="_blank" rel="noopener"><span class="action-btn-icon">🏨</span>Booking</a>
+         <a class="action-btn" href="${compareHotelsUrl(item.name, stop)}" target="_blank" rel="noopener"><span class="action-btn-icon">💰</span>Compare</a>`
+      : `<a class="action-btn" href="${getYourGuideUrl(item.name, stop)}" target="_blank" rel="noopener"><span class="action-btn-icon">🎫</span>Tours</a>
+         <a class="action-btn" href="${tripadvisorUrl(item.name, stop)}" target="_blank" rel="noopener"><span class="action-btn-icon">ℹ️</span>Reviews</a>`,
+    `<button class="action-btn" onclick="openPoiInPanel(${currentStopIdx}, '${itemKey}')"><span class="action-btn-icon">→</span>Details</button>`,
+  ].join('');
+  // Initial photo pool: stop's pre-fetched 4 photos (always available, no async needed)
+  const stopPhotos = (stop.photos || []).filter(p => p);
+  const initialPhotos = stopPhotos.length ? stopPhotos.slice(0, 5) : [null];
+  const wikiTitle = isHotel ? '' : item.name;
+  const fallbackPoolJson = escapeHtml(JSON.stringify(stopPhotos));
+  const slides = initialPhotos.map((p, i) =>
+    `<div class="poi-popup-slide">${p ? `<img alt="" src="${escapeHtml(p)}" onerror="handleSlideImgError(this)" />` : ''}</div>`
+  ).join('');
+  const dots = initialPhotos.map((_, i) =>
+    `<button class="poi-popup-carousel-dot ${i === 0 ? 'is-active' : ''}" data-idx="${i}" aria-label="Photo ${i + 1}"></button>`
+  ).join('');
+  const carousel = `
+    <div class="poi-popup-carousel" style="--popup-color: ${stop.color}" data-wiki-title="${escapeHtml(wikiTitle)}" data-country="${escapeHtml(stopCountryEn(stop))}" data-fallback-pool="${fallbackPoolJson}">
+      <div class="poi-popup-carousel-track">${slides}</div>
+      ${initialPhotos.length > 1 ? `<button class="poi-popup-carousel-nav prev" aria-label="Previous photo"><span aria-hidden="true">‹</span></button>
+      <button class="poi-popup-carousel-nav next" aria-label="Next photo"><span aria-hidden="true">›</span></button>
+      <div class="poi-popup-carousel-dots">${dots}</div>` : ''}
+      <div class="poi-popup-carousel-credit" aria-hidden="true">📷 Wikipedia</div>
+    </div>`;
+  return `${carousel}
+    <div class="poi-popup-body">
+      <div class="poi-popup-head">
+        <span class="poi-popup-emoji">${item.emoji || (isHotel ? '🏨' : '📍')}</span>
+        <span class="poi-popup-name">${escapeHtml(item.name)}</span>
+      </div>
+      ${item.desc ? `<p class="poi-popup-desc">${escapeHtml(item.desc)}</p>` : ''}
+      ${meta ? `<div class="poi-popup-meta">${meta}</div>` : ''}
+      <div class="poi-popup-actions">${actions}</div>
+    </div>`;
+}
+
+// Image fallback: if a carousel image 404s, swap to next stop photo in pool; if all fail, remove the slide
+window.handleSlideImgError = function(img) {
+  const carousel = img.closest('.poi-popup-carousel');
+  if (!carousel) return;
+  let pool = [];
+  try { pool = JSON.parse(carousel.dataset.fallbackPool || '[]'); } catch (e) {}
+  const tried = new Set((img.dataset.tried || '').split('||').filter(Boolean));
+  tried.add(img.src);
+  img.dataset.tried = Array.from(tried).join('||');
+  const next = pool.find(p => !tried.has(p) && !tried.has(new URL(p, window.location.href).href));
+  if (next) {
+    img.src = next;
+  } else {
+    // No more fallbacks — remove this slide and its dot
+    const slide = img.closest('.poi-popup-slide');
+    if (!slide) return;
+    const slideIdx = Array.from(slide.parentElement.children).indexOf(slide);
+    slide.remove();
+    const dots = carousel.querySelectorAll('.poi-popup-carousel-dot');
+    if (dots[slideIdx]) dots[slideIdx].remove();
+    // Re-wire dots since indices changed
+    delete carousel.dataset.wired;
+    setupPoiCarousel();
+  }
+};
+
+function setupPoiCarousel() {
+  const c = document.querySelector('.leaflet-popup .poi-popup-carousel');
+  if (!c || c.dataset.wired === '1') return;
+  c.dataset.wired = '1';
+  const track = c.querySelector('.poi-popup-carousel-track');
+  const dots = Array.from(c.querySelectorAll('.poi-popup-carousel-dot'));
+  const prev = c.querySelector('.prev');
+  const next = c.querySelector('.next');
+  const updateState = () => {
+    const idx = Math.round(track.scrollLeft / track.clientWidth);
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    if (prev) prev.disabled = idx <= 0;
+    if (next) next.disabled = idx >= dots.length - 1;
+  };
+  track.addEventListener('scroll', updateState, { passive: true });
+  if (prev) prev.addEventListener('click', () => track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' }));
+  if (next) next.addEventListener('click', () => track.scrollBy({ left: track.clientWidth, behavior: 'smooth' }));
+  dots.forEach((d, i) => d.addEventListener('click', () => track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' })));
+  updateState();
+}
+
+async function maybeLoadWikiInPopup() {
+  const c = document.querySelector('.leaflet-popup .poi-popup-carousel');
+  if (!c) return;
+  setupPoiCarousel();
+  if (c.dataset.wikiLoaded === '1') return;
+  c.dataset.wikiLoaded = '1';
+  const wikiTitle = c.dataset.wikiTitle;
+  if (!wikiTitle) return; // hotels — keep stop photos as-is
+
+  const country = c.dataset.country || '';
+  // Try multiple title variants — Wikipedia article titles rarely match composite POI names
+  const cleanBase = wikiTitle.replace(/\(.*\)/g, '').trim();
+  const parts = cleanBase.split(/\s*[·\+&]\s*/).map(p => p.trim()).filter(Boolean);
+  const candidates = [...new Set([
+    wikiTitle,
+    cleanBase,
+    ...parts,
+    `${parts[0] || cleanBase} ${country}`.trim(),
+    `${cleanBase} ${country}`.trim(),
+  ].filter(Boolean))];
+  let wikiUrls = [];
+  for (const t of candidates) {
+    wikiUrls = await fetchWikiMediaList(t);
+    if (wikiUrls.length >= 2) break;
+  }
+  if (wikiUrls.length === 0) return;
+
+  // Swap in wiki photos for first slides (prepend, smooth fade)
+  const slides = Array.from(c.querySelectorAll('.poi-popup-slide'));
+  const toShow = wikiUrls.slice(0, 5);
+  // Build new slide HTML: wiki photos first, then any remaining stop photos to fill
+  const track = c.querySelector('.poi-popup-carousel-track');
+  const existingStopPhotos = slides.map(s => s.querySelector('img')?.getAttribute('src')).filter(Boolean);
+  const allPhotos = [...toShow];
+  for (const sp of existingStopPhotos) { if (allPhotos.length >= 5) break; if (!allPhotos.includes(sp)) allPhotos.push(sp); }
+
+  // Re-render slides + dots — onerror swaps to stop fallback pool
+  track.innerHTML = allPhotos.map(p => `<div class="poi-popup-slide"><img alt="" src="${escapeHtml(p)}" onerror="handleSlideImgError(this)" /></div>`).join('');
+  const dotsEl = c.querySelector('.poi-popup-carousel-dots');
+  if (dotsEl) {
+    dotsEl.innerHTML = allPhotos.map((_, i) => `<button class="poi-popup-carousel-dot ${i === 0 ? 'is-active' : ''}" data-idx="${i}" aria-label="Photo ${i + 1}"></button>`).join('');
+  }
+  c.classList.add('has-wiki');
+  c.dataset.wired = ''; // re-wire dots/nav after re-render
+  setupPoiCarousel();
+}
+
+function bindPoiClick(marker, item, stop, isHotel, itemKey) {
+  marker.on('click', () => {
+    // Zoom into the POI so user doesn't need to manually scroll/zoom
+    const targetZoom = isHotel ? 16 : 15; // hotels need tighter zoom (specific building)
+    const currentZoom = map.getZoom();
+    const flyZoom = Math.max(currentZoom, targetZoom);
+    map.flyTo(item.coords, flyZoom, { duration: 0.7, easeLinearity: 0.4 });
+    // Open popup after map starts moving (autoPan handles keeping it visible)
+    setTimeout(() => {
+      const html = buildPoiPopupHtml(item, stop, isHotel, itemKey);
+      L.popup({ maxWidth: 280, minWidth: 280, autoPan: true, autoPanPadding: [40, 40], offset: [0, -12] })
+        .setLatLng(item.coords)
+        .setContent(html)
+        .openOn(map);
+      setTimeout(maybeLoadWikiInPopup, 80);
+    }, 250);
+  });
+}
+
+function showStopPois(stop) {
+  clearPois();
+  (stop.activities || []).forEach((a, idx) => {
+    if (!a.coords || a.coords.length !== 2) return;
+    const m = L.marker(a.coords, {
+      icon: L.divIcon({ className: 'poi-marker', html: `<div class="poi-marker-inner" style="color:${stop.color}">${a.emoji || '📍'}</div>`, iconSize: [28, 28], iconAnchor: [14, 14] }),
+      riseOnHover: true
+    }).addTo(map);
+    bindPoiClick(m, a, stop, false, `a-${idx}`);
+    poiMarkers.push(m);
+  });
+  (stop.hotels || []).forEach((h, idx) => {
+    if (!h.coords || h.coords.length !== 2) return;
+    const m = L.marker(h.coords, {
+      icon: L.divIcon({ className: 'poi-marker is-hotel', html: `<div class="poi-marker-inner" style="color:${stop.color}">${h.emoji || '🏨'}</div>`, iconSize: [28, 28], iconAnchor: [14, 14] }),
+      riseOnHover: true
+    }).addTo(map);
+    bindPoiClick(m, h, stop, true, `h-${idx}`);
+    poiMarkers.push(m);
+  });
+}
+
+/* ─── PLAY JOURNEY ─── */
+let isPlaying = false;
+let activeVehicleMarker = null;
+async function playJourney() {
+  if (isPlaying) { stopJourney(); return; }
+  isPlaying = true;
+  $('#playBtn').textContent = '■';
+  $('#playBtn').classList.add('is-playing');
+  closeDetail();
+  $('#journeyProgress').classList.add('is-visible');
+  for (let i = 0; i < TRIP.stops.length; i++) {
+    if (!isPlaying) break;
+    const stop = TRIP.stops[i];
+    $('#journeyLabel').textContent = `${stop.n}. ${stop.name}`;
+    $('#journeyFill').style.width = `${(i + 1) / TRIP.stops.length * 100}%`;
+    map.flyTo(stop.coords, 7, { duration: 1.2 });
+    updateActiveMarker(i);
+    await sleep(1500);
+    if (!isPlaying) break;
+    if (i < TRIP.stops.length - 1) {
+      const next = TRIP.stops[i + 1];
+      const icon = (stop.transportOut?.icon || '🚗').match(/[\p{Emoji}]/u)?.[0] || '🚗';
+      $('#journeyLabel').textContent = `${stop.name} → ${next.name}`;
+      await animateVehicle(stop.coords, next.coords, icon);
+    }
+  }
+  stopJourney();
+}
+async function animateVehicle(from, to, icon) {
+  activeVehicleMarker = L.marker(from, {
+    icon: L.divIcon({ className: 'vehicle-marker', html: `<div class="vehicle-icon">${icon}</div>`, iconSize: [40, 40], iconAnchor: [20, 20] })
+  }).addTo(map);
+  const steps = 40;
+  const bounds = L.latLngBounds([from, to]).pad(0.3);
+  map.fitBounds(bounds, { padding: [60, 60], maxZoom: 8, animate: true, duration: 0.6 });
+  await sleep(600);
+  for (let i = 0; i <= steps; i++) {
+    if (!isPlaying) break;
+    const t = i / steps;
+    const lat = from[0] + (to[0] - from[0]) * t;
+    const lng = from[1] + (to[1] - from[1]) * t;
+    activeVehicleMarker.setLatLng([lat, lng]);
+    await sleep(40);
+  }
+  if (activeVehicleMarker) { map.removeLayer(activeVehicleMarker); activeVehicleMarker = null; }
+}
+function stopJourney() {
+  isPlaying = false;
+  $('#playBtn').textContent = '▶';
+  $('#playBtn').classList.remove('is-playing');
+  $('#journeyProgress').classList.remove('is-visible');
+  if (activeVehicleMarker) { map.removeLayer(activeVehicleMarker); activeVehicleMarker = null; }
+}
+
+/* ─── DETAIL PANEL ─── */
+function selectStop(idx) {
+  const stop = TRIP.stops[idx];
+  if (!stop) return;
+  currentStopIdx = idx;
+  // First-visit hint: user discovered how to open stops, dismiss it
+  if (typeof dismissHint === 'function') dismissHint();
+  const all = [stop.coords,
+    ...(stop.activities || []).filter(a => a.coords).map(a => a.coords),
+    ...(stop.hotels || []).filter(h => h.coords).map(h => h.coords)];
+  if (all.length > 1) map.fitBounds(L.latLngBounds(all), { padding: [80, 80], maxZoom: 13 });
+  else map.flyTo(stop.coords, 12, { duration: 0.8 });
+  showStopPois(stop);
+  updateActiveMarker(idx);
+  $('#mapReset').classList.add('is-visible');
+
+  // Photo grid
+  $$('#photoGrid .photo-slot').forEach((slot, i) => {
+    const img = slot.querySelector('img');
+    slot.style.setProperty('--photo-color', stop.color);
+    slot.classList.remove('is-loaded', 'is-fallback');
+    img.classList.remove('is-loaded');
+    img.removeAttribute('src');
+    const url = stop.photos?.[i];
+    if (url) {
+      img.onload = () => { slot.classList.add('is-loaded'); img.classList.add('is-loaded'); };
+      img.onerror = () => { slot.classList.add('is-fallback', 'is-loaded'); };
+      img.src = url;
+    } else slot.classList.add('is-fallback', 'is-loaded');
+  });
+
+  $('#detailHeadNum').textContent = stop.n;
+  $('#detailHeadNum').style.background = stop.color;
+  $('#detailHeadBadge').textContent = `${stop.country} · ${stop.badge || stop.day}`;
+  $('#detailHeadTitle').textContent = `${stop.emoji || ''} ${stop.name}`.trim();
+  $('#detailHeadDates').textContent = `${stop.day} · ${stop.dates}`;
+  $('#prevStopBtn').disabled = idx === 0;
+  $('#nextStopBtn').disabled = idx === TRIP.stops.length - 1;
+
+  ['schedule', 'activities', 'hotels', 'checklist', 'transport'].forEach(name => renderTab(name, stop, idx));
+  switchTab('schedule');
+  renderNotes(stop, idx);
+  renderGoodToKnow(stop);
+  openDetail();
+}
+function openDetail() {
+  const p = $('#detailPanel');
+  p.classList.add('is-open');
+  p.removeAttribute('inert');
+}
+function closeDetail() {
+  const p = $('#detailPanel');
+  p.classList.remove('is-open');
+  // Return focus to active stop card before disabling
+  const activeCard = document.querySelector('.stop-card.is-active');
+  if (activeCard) activeCard.focus();
+  p.setAttribute('inert', '');
+  currentStopIdx = -1;
+  updateActiveMarker(-1);
+  clearPois();
+  $('#mapReset').classList.remove('is-visible');
+  fitAllStops();
+}
+
+function renderTab(name, stop, stopIdx) {
+  let html = '', summary = '';
+
+  if (name === 'schedule') {
+    const items = stop.schedule || [];
+    html = items.length === 0 ? emptyState('📅', 'No schedule yet')
+      : `<ul class="schedule-list">${items.map(s =>
+          `<li class="schedule-item"><span class="schedule-bullet"></span><span>${escapeHtml(s)}</span></li>`).join('')}</ul>`;
+  }
+  if (name === 'activities') {
+    const items = stop.activities || [];
+    html = items.length === 0 ? emptyState('🎯', 'No activities yet')
+      : items.map((a, idx) => itemCard({ emoji: a.emoji, title: a.name, price: a.budget, time: a.time, desc: a.desc, tags: a.tags, coords: a.coords, stop, isHotel: false }).replace('<div class="item-card"', `<div class="item-card" data-item-key="a-${idx}"`)).join('');
+    const total = items.reduce((s, a) => s + (parsePrice(a.budget) || 0), 0) * (TRIP.travelers || 1);
+    if (total > 0) summary = sectionSummary(`Activities total (${TRIP.travelers} pax)`, `${TRIP.currency} ${fmt(Math.round(total))}`);
+  }
+  if (name === 'hotels') {
+    const items = stop.hotels || [];
+    html = items.length === 0 ? emptyState('🏨', 'No hotels picked yet')
+      : items.map((h, idx) => itemCard({ emoji: h.emoji, title: h.name, price: h.price, desc: h.desc, tags: tagFromTier(h.tag), coords: h.coords, stop, isHotel: true }).replace('<div class="item-card"', `<div class="item-card" data-item-key="h-${idx}"`)).join('');
+    const prices = items.map(h => parsePrice(h.price)).filter(p => p);
+    if (prices.length) {
+      prices.sort((x, y) => x - y);
+      const mid = prices[Math.floor(prices.length / 2)];
+      const nights = nightsForStop(stop);
+      summary = sectionSummary(`Hotels (median × ${nights} nights)`, `${TRIP.currency} ${fmt(Math.round(mid * nights))}`);
+    }
+  }
+  if (name === 'checklist') {
+    const items = stop.checklist || [];
+    html = items.length === 0 ? emptyState('✓', 'No tasks')
+      : `<ul class="checklist-list">${items.map((c, j) => {
+          const booked = isBooked(stopIdx, j);
+          const taskId = `task-${stopIdx}-${j}`;
+          return `<li class="checklist-item ${c.urgent ? 'is-urgent' : ''} ${booked ? 'is-done' : ''}">
+            <span class="checklist-checkbox ${c.urgent ? 'is-urgent' : ''} ${booked ? 'is-checked' : ''}" onclick="toggleBooking(${stopIdx}, ${j}, this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleBooking(${stopIdx},${j},this);}" role="checkbox" tabindex="0" aria-checked="${booked}" aria-labelledby="${taskId}"></span>
+            <div class="checklist-body">
+              <div class="checklist-task" id="${taskId}">${escapeHtml(c.task)}</div>
+              ${c.note ? `<div class="checklist-note">${escapeHtml(c.note)}</div>` : ''}
+            </div>
+            <button class="checklist-cal" onclick="exportIcs(${stopIdx}, ${j})" title="Add to calendar" aria-label="Download calendar reminder for ${escapeHtml(c.task)}"><span aria-hidden="true">📅</span></button>
+          </li>`;
+        }).join('')}</ul>`;
+  }
+  if (name === 'transport') {
+    const sections = [];
+    if (stop.transportIn) sections.push(transportCard(stop.transportIn, 'Arrive'));
+    if (stop.transportOut) sections.push(transportCard(stop.transportOut, 'Depart'));
+    html = sections.length ? sections.join('') : emptyState('🚄', 'No transport info');
+  }
+  let pane = $(`.tab-pane[data-pane="${name}"]`);
+  if (!pane) { pane = el('div', { class: 'tab-pane', 'data-pane': name }); $('#detailBody').appendChild(pane); }
+  pane.innerHTML = html + summary;
+}
+
+window.toggleBooking = function(stopIdx, taskIdx, el) {
+  const newVal = !isBooked(stopIdx, taskIdx);
+  setBooked(stopIdx, taskIdx, newVal);
+  el.classList.toggle('is-checked', newVal);
+  el.parentElement.classList.toggle('is-done', newVal);
+  el.setAttribute('aria-checked', newVal);
+  renderBookingCard();
+  refreshStopWarnings();
+};
+
+window.exportIcs = function(stopIdx, taskIdx) {
+  const stop = TRIP.stops[stopIdx];
+  const task = stop.checklist[taskIdx];
+  const target = new Date(TRIP.countdownTarget);
+  const daysAhead = task.urgent ? 60 : 14;
+  const dt = new Date(target.getTime() - daysAhead * 24 * 60 * 60 * 1000);
+  const dtStr = dt.toISOString().split('T')[0].replace(/-/g, '');
+  const uid = `${dtStr}-${stopIdx}-${taskIdx}@samcraftflow-trips`;
+  const summary = `${TRIP.title}: ${task.task} (${stop.name})`;
+  const desc = (task.note || '') + `\\n\\nFor: ${stop.name} (${stop.dates})`;
+  const ics = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//trips//EN',
+    'BEGIN:VEVENT',
+    `UID:${uid}`,
+    `DTSTAMP:${dtStr}T090000Z`,
+    `DTSTART;VALUE=DATE:${dtStr}`,
+    `SUMMARY:${summary.replace(/,/g, '\\,')}`,
+    `DESCRIPTION:${desc.replace(/,/g, '\\,')}`,
+    'BEGIN:VALARM', 'TRIGGER:-PT9H', 'ACTION:DISPLAY', `DESCRIPTION:${summary}`, 'END:VALARM',
+    'END:VEVENT', 'END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], { type: 'text/calendar' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${task.task.replace(/[^\w]+/g, '-').slice(0, 40)}.ics`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(`📅 Reminder for ${dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`);
+};
+
+/* ─── NOTES + GTK shared wrapper ─── */
+function ensureDetailExtrasWrapper() {
+  let wrap = $('#detailExtras');
+  if (!wrap) {
+    wrap = el('div', { id: 'detailExtras', class: 'detail-extras' });
+    $('#detailBody').appendChild(wrap);
+  }
+  return wrap;
+}
+
+/* ─── NOTES ─── */
+function renderNotes(stop, stopIdx) {
+  const wrap = ensureDetailExtrasWrapper();
+  let card = wrap.querySelector('.notes-section');
+  if (!card) { card = el('div', { class: 'notes-section' }); wrap.appendChild(card); }
+  const key = `notes-${stopIdx}`;
+  const saved = lsGet(key) || '';
+  card.innerHTML = `
+    <div class="notes-head">
+      <span class="notes-title">📝 Our Notes</span>
+      <span class="notes-hint">saved on this device only</span>
+    </div>
+    <textarea class="notes-textarea" placeholder="Thoughts, reminders, things to remember about ${stop.name}..."></textarea>
+    <div class="notes-status" id="notesStatus"></div>
+  `;
+  const ta = card.querySelector('textarea');
+  ta.value = saved;
+  const status = card.querySelector('#notesStatus');
+  ta.addEventListener('input', debounce(() => {
+    lsSet(key, ta.value);
+    status.textContent = '✓ saved';
+    setTimeout(() => status.textContent = '', 1500);
+  }, 400));
+}
+
+/* ─── GOOD TO KNOW + EMERGENCY + PHRASES ─── */
+function findCountryFor(stop) {
+  const m = stop.country.replace(/[^A-Za-z ]/g, '').trim();
+  return TRIP.countries.find(c => c.name === m) || null;
+}
+function renderGoodToKnow(stop) {
+  const gtk = stop.goodToKnow;
+  if (!gtk) return;
+  const country = findCountryFor(stop);
+  const wrap = ensureDetailExtrasWrapper();
+  let card = wrap.querySelector('.gtk-card');
+  if (!card) { card = el('div', { class: 'gtk-card' }); wrap.appendChild(card); }
+  let emergencyHtml = '';
+  if (country?.emergency) {
+    const rows = Object.entries(country.emergency).map(([k, v]) =>
+      `<div class="emergency-item"><span class="emergency-key">${escapeHtml(k)}</span><span class="emergency-val">${escapeHtml(v)}</span></div>`).join('');
+    emergencyHtml = `<details class="gtk-extra">
+      <summary>🚨 Emergency Numbers</summary>
+      <div class="gtk-extra-content"><div class="emergency-list">${rows}</div></div>
+    </details>`;
+  }
+  let phrasesHtml = '';
+  if (country?.phrases?.length) {
+    const rows = country.phrases.map(p =>
+      `<div class="phrase-row"><span class="phrase-en">${escapeHtml(p[0])}</span><span class="phrase-local">${escapeHtml(p[1])}</span></div>`).join('');
+    phrasesHtml = `<details class="gtk-extra">
+      <summary>💬 Travel Phrases (${escapeHtml(country.name)})</summary>
+      <div class="gtk-extra-content"><div class="phrases-list">${rows}</div></div>
+    </details>`;
+  }
+  card.innerHTML = `
+    <p class="gtk-title">Good to Know</p>
+    <div class="gtk-grid">
+      <div class="gtk-item"><span class="gtk-emoji">💱</span><div><div class="gtk-key">Currency</div><div class="gtk-val">${escapeHtml(gtk.currency || '—')}</div></div></div>
+      <div class="gtk-item"><span class="gtk-emoji">🕐</span><div><div class="gtk-key">Time Zone</div><div class="gtk-val">${escapeHtml(gtk.timezone || '—')}</div></div></div>
+      <div class="gtk-item"><span class="gtk-emoji">🔌</span><div><div class="gtk-key">Plug</div><div class="gtk-val">${escapeHtml(gtk.plug || '—')}</div></div></div>
+      <div class="gtk-item"><span class="gtk-emoji">🗣️</span><div><div class="gtk-key">Language</div><div class="gtk-val">${escapeHtml(gtk.language || '—')}</div></div></div>
+      <div class="gtk-item" style="grid-column: 1 / -1"><span class="gtk-emoji">☔</span><div><div class="gtk-key">Oct Climate</div><div class="gtk-val">${escapeHtml(gtk.climate || '—')}</div></div></div>
+    </div>
+    ${emergencyHtml}${phrasesHtml}
+  `;
+}
+
+function emptyState(emoji, text) { return `<div class="empty-state"><div class="empty-state-emoji">${emoji}</div><div>${text}</div></div>`; }
+function sectionSummary(label, value) { return `<div class="section-summary"><span class="section-summary-label">${escapeHtml(label)}</span><span class="section-summary-value">${escapeHtml(value)}</span></div>`; }
+function tagFromTier(t) { return t === 'l' ? ['Luxury'] : t === 'p' ? ['Preferred'] : t === 'b' ? ['Budget'] : []; }
+
+function itemCard({ emoji, title, price, time, desc, tags, coords, stop, isHotel }) {
+  const tagsHtml = (tags || []).map(t => {
+    let cls = 'item-tag';
+    if (t === 'Luxury') cls += ' tier-l';
+    else if (t === 'Preferred') cls += ' tier-p';
+    else if (t === 'Budget') cls += ' tier-b';
+    return `<span class="${cls}">${escapeHtml(t)}</span>`;
+  }).join('');
+  const coordAttr = (coords && coords.length === 2) ? `data-lat="${coords[0]}" data-lng="${coords[1]}"` : '';
+  const actions = buildActionLinks(title, stop, coords, isHotel);
+  return `<div class="item-card" ${coordAttr} tabindex="0" role="button" aria-label="${escapeHtml(title)}" onclick="onItemClick(event, this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();onItemClick(event,this);}">
+    <div class="item-head">
+      <span class="item-emoji" aria-hidden="true">${emoji || '📍'}</span>
+      <span class="item-title">${escapeHtml(title)}</span>
+      ${price ? `<span class="item-price">${escapeHtml(price)}</span>` : ''}
+    </div>
+    ${desc ? `<p class="item-desc">${escapeHtml(desc)}</p>` : ''}
+    <div class="item-foot">${tagsHtml}${time ? `<span class="item-time">⏱ ${escapeHtml(time)}</span>` : ''}</div>
+    <div class="item-actions">${actions}</div>
+  </div>`;
+}
+
+function buildActionLinks(name, stop, coords, isHotel) {
+  if (!stop) return '';
+  const stop_ = stop;
+  const links = [];
+  links.push(`<a class="action-btn" href="${mapsUrl(name, stop_, coords)}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="action-btn-icon">📍</span>Maps</a>`);
+  if (isHotel) {
+    links.push(`<a class="action-btn" href="${bookingUrl(name, stop_)}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="action-btn-icon">🏨</span>Booking</a>`);
+    links.push(`<a class="action-btn" href="${compareHotelsUrl(name, stop_)}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="action-btn-icon">💰</span>Compare</a>`);
+  } else {
+    links.push(`<a class="action-btn" href="${getYourGuideUrl(name, stop_)}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="action-btn-icon">🎫</span>Tours</a>`);
+    links.push(`<a class="action-btn" href="${tripadvisorUrl(name, stop_)}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="action-btn-icon">ℹ️</span>Reviews</a>`);
+  }
+  return links.join('');
+}
+function parseTransportRoute(label) {
+  if (!label) return null;
+  // Match "X → Y (...)" or "X → Y"
+  const m = String(label).match(/^(.+?)\s*[→]\s*(.+?)(?:\s*[(（].*)?$/);
+  if (!m) return null;
+  return { from: m[1].trim(), to: m[2].trim() };
+}
+
+function buildTransportActions(t) {
+  const links = [];
+  const route = parseTransportRoute(t.label);
+  const icon = String(t.icon || '');
+
+  // 1. Directions on Google Maps (always — for routes that have from/to)
+  if (route) {
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(route.from)}&destination=${encodeURIComponent(route.to)}&travelmode=${icon.includes('🚗') ? 'driving' : 'transit'}`;
+    links.push(`<a class="action-btn" href="${url}" target="_blank" rel="noopener"><span class="action-btn-icon">📍</span>Directions</a>`);
+  }
+
+  // 2. Primary Book link (their suggested URL)
+  if (t.book) {
+    links.push(`<a class="action-btn" href="${escapeHtml(t.book)}" target="_blank" rel="noopener"><span class="action-btn-icon">↗</span>Book</a>`);
+  }
+
+  // 3. Compare alternative — type-specific aggregator
+  const q = route ? encodeURIComponent(`${route.from} to ${route.to}`) : '';
+  if (icon.includes('✈️')) {
+    // Flight: Google Flights + Skyscanner
+    links.push(`<a class="action-btn" href="https://www.google.com/travel/flights${q ? '?q=' + q : ''}" target="_blank" rel="noopener"><span class="action-btn-icon">✈️</span>Google Flights</a>`);
+    links.push(`<a class="action-btn" href="https://www.skyscanner.com/" target="_blank" rel="noopener"><span class="action-btn-icon">🔍</span>Skyscanner</a>`);
+  } else if (icon.includes('🚗')) {
+    // Car rental
+    links.push(`<a class="action-btn" href="https://www.rentalcars.com/" target="_blank" rel="noopener"><span class="action-btn-icon">💰</span>Rentalcars</a>`);
+    links.push(`<a class="action-btn" href="https://www.kayak.com/cars" target="_blank" rel="noopener"><span class="action-btn-icon">🔍</span>Kayak Cars</a>`);
+  } else if (icon.includes('🚤') || icon.includes('⛵')) {
+    // Ferry
+    links.push(`<a class="action-btn" href="https://www.directferries.com/" target="_blank" rel="noopener"><span class="action-btn-icon">🚤</span>Direct Ferries</a>`);
+  } else {
+    // Default: ground transit (train + bus + multi-modal in Europe)
+    links.push(`<a class="action-btn" href="https://www.omio.com/" target="_blank" rel="noopener"><span class="action-btn-icon">🔍</span>Omio</a>`);
+    links.push(`<a class="action-btn" href="https://www.trainline.com/" target="_blank" rel="noopener"><span class="action-btn-icon">🚄</span>Trainline</a>`);
+  }
+  return links.join('');
+}
+
+function transportCard(t, direction) {
+  const actions = buildTransportActions(t);
+  return `<div class="transport-card">
+    <div class="transport-direction">${direction}</div>
+    <div class="transport-head">
+      <span class="transport-icon">${t.icon || '🚄'}</span>
+      <div class="transport-label">${escapeHtml(t.label || '')}</div>
+    </div>
+    ${t.detail ? `<p class="transport-detail">${escapeHtml(t.detail)}</p>` : ''}
+    <div class="transport-meta">${t.price ? `<span class="transport-meta-item"><span class="transport-meta-key">Price</span> ${escapeHtml(t.price)}</span>` : ''}</div>
+    ${t.tip ? `<div class="transport-tip">💡 ${escapeHtml(t.tip)}</div>` : ''}
+    ${actions ? `<div class="item-actions" style="margin-top: 12px">${actions}</div>` : ''}
+  </div>`;
+}
+window.onItemClick = function(e, card) {
+  if (e && e.target && e.target.closest('.action-btn')) return;
+  const lat = parseFloat(card.dataset.lat);
+  const lng = parseFloat(card.dataset.lng);
+  if (!isNaN(lat) && !isNaN(lng)) map.flyTo([lat, lng], 15, { duration: 0.8 });
+};
+
+window.openPoiInPanel = function(stopIdx, itemKey) {
+  if (stopIdx !== currentStopIdx) selectStop(stopIdx);
+  const isHotel = itemKey.startsWith('h-');
+  switchTab(isHotel ? 'hotels' : 'activities');
+  setTimeout(() => {
+    const card = document.querySelector(`.item-card[data-item-key="${itemKey}"]`);
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.style.transition = 'box-shadow 0.3s ease, transform 0.3s ease';
+      card.style.boxShadow = `0 0 0 3px ${TRIP.stops[stopIdx].color}aa`;
+      card.style.transform = 'scale(1.01)';
+      setTimeout(() => { card.style.boxShadow = ''; card.style.transform = ''; }, 1400);
+    }
+    map.closePopup();
+  }, 120);
+};
+
+/* ─── TABS / SHARE / KEYBOARD ─── */
+function switchTab(name) {
+  $$('.tab').forEach(t => t.classList.toggle('is-active', t.dataset.tab === name));
+  $$('.tab-pane').forEach(p => p.classList.toggle('is-active', p.dataset.pane === name));
+}
+function bindTabs() { $$('.tab').forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab))); }
+function bindShare() {
+  $('#shareBtn').addEventListener('click', async () => {
+    const url = window.location.href;
+    const data = { title: TRIP.title, text: `${TRIP.title} · ${TRIP.dates}`, url };
+    if (navigator.share) { try { await navigator.share(data); return; } catch (e) {} }
+    try { await navigator.clipboard.writeText(url); showToast('Link copied'); } catch (e) { showToast('Copy failed'); }
+  });
+}
+function showToast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('is-visible');
+  setTimeout(() => t.classList.remove('is-visible'), 2200);
+}
+function bindKeyboard() {
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'Escape' && $('#detailPanel').classList.contains('is-open')) { e.preventDefault(); closeDetail(); }
+    else if (e.key === 'ArrowLeft' && $('#detailPanel').classList.contains('is-open') && currentStopIdx > 0) { e.preventDefault(); selectStop(currentStopIdx - 1); }
+    else if (e.key === 'ArrowRight' && $('#detailPanel').classList.contains('is-open') && currentStopIdx < TRIP.stops.length - 1) { e.preventDefault(); selectStop(currentStopIdx + 1); }
+    else if (e.key === 't' && !e.metaKey && !e.ctrlKey) { $('#themeToggle').click(); }
+    else if (e.key === ' ' && !$('#detailPanel').classList.contains('is-open')) { e.preventDefault(); $('#playBtn').click(); }
+  });
+}
+function bindNavBtns() {
+  $('#prevStopBtn').addEventListener('click', () => currentStopIdx > 0 && selectStop(currentStopIdx - 1));
+  $('#nextStopBtn').addEventListener('click', () => currentStopIdx < TRIP.stops.length - 1 && selectStop(currentStopIdx + 1));
+  $('#detailClose').addEventListener('click', closeDetail);
+  $('#playBtn').addEventListener('click', playJourney);
+}
+function renderLastUpdated() { $('#lastUpdated').textContent = TRIP.lastUpdated ? `Last updated · ${TRIP.lastUpdated}` : ''; }
+
+/* ─── ONBOARDING HINT (first-visit only) ─── */
+function dismissHint() {
+  const hint = $('#onboardingHint');
+  if (hint && !hint.hidden) {
+    hint.hidden = true;
+    lsSet('hint-dismissed', true);
+  }
+}
+function initOnboardingHint() {
+  const hint = $('#onboardingHint');
+  if (!hint) return;
+  if (!lsGet('hint-dismissed')) hint.hidden = false;
+  $('#hintClose').addEventListener('click', dismissHint);
+}
+
+function init() {
+  initTheme();
+  renderHeader();
+  renderCover();
+  renderStats();
+  renderBudget();
+  renderBookingCard();
+  renderPackingCard();
+  renderCountdown();
+  setInterval(renderCountdown, 1000 * 60 * 30);
+  renderStopsList();
+  renderLastUpdated();
+  initMap();
+  bindTabs();
+  bindShare();
+  bindNavBtns();
+  bindKeyboard();
+  initOnboardingHint();
+}
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sam & Kayniss · Trips</title>
+<meta name="description" content="Sam & Kayniss 的旅行紀錄。" />
+<meta property="og:title" content="Sam & Kayniss · Trips" />
+<meta property="og:description" content="Travel itineraries & memories" />
+<meta property="og:image" content="https://samcraftflow.github.io/trips/honeymoon/img/stop-1/1.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#f8f6f1" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1a1814" media="(prefers-color-scheme: dark)" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #f8f6f1;
+  --bg-elev: #ffffff;
+  --bg-soft: #f0ede5;
+  --border: #e6e2d8;
+  --border-strong: #d4cfc1;
+  --text: #1b1a17;
+  --text-mid: #56524a;
+  --text-soft: #908a7d;
+  --accent: #b8543a;
+  --accent-soft: rgba(184, 84, 58, 0.08);
+  --shadow-sm: 0 1px 2px rgba(40, 30, 20, 0.04);
+  --shadow-md: 0 6px 20px rgba(40, 30, 20, 0.07);
+  --shadow-lg: 0 20px 50px rgba(40, 30, 20, 0.12);
+}
+[data-theme="dark"] {
+  --bg: #1a1814;
+  --bg-elev: #25221d;
+  --bg-soft: #2f2b25;
+  --border: #34302a;
+  --border-strong: #4a463e;
+  --text: #f0ece4;
+  --text-mid: #b8b2a5;
+  --text-soft: #7d7669;
+  --accent: #d97757;
+  --accent-soft: rgba(217, 119, 87, 0.12);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+:root {
+  --radius: 12px;
+  --radius-lg: 20px;
+  --font-serif: 'Lora', 'Noto Serif TC', 'Songti TC', Georgia, serif;
+  --font-sans: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--bg);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 56px 32px 120px;
+}
+
+.top-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+.theme-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  font-size: 15px;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.theme-btn:hover { background: var(--bg-soft); border-color: var(--border-strong); }
+
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.title-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding: 6px 14px;
+  background: var(--accent-soft);
+  border-radius: 999px;
+}
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin: 0 0 16px;
+}
+.title em {
+  font-style: italic;
+  color: var(--accent);
+}
+.subtitle {
+  font-size: 16px;
+  color: var(--text-mid);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.section { margin-top: 56px; }
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 0 0 4px;
+}
+.section-sub {
+  font-size: 13px;
+  color: var(--text-soft);
+  margin: 0 0 24px;
+}
+
+.trips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.trip-card {
+  position: relative;
+  display: block;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+}
+.trip-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-strong);
+}
+
+.trip-cover {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: linear-gradient(135deg, #d4b896 0%, #b8543a 100%);
+}
+.trip-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.trip-card:hover .trip-cover img { transform: scale(1.04); }
+.trip-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5));
+}
+.trip-cover-overlay {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 16px;
+  color: white;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+}
+.trip-cover-meta {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+.trip-countdown {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.trip-body { padding: 22px 24px 24px; }
+.trip-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0 0 6px;
+}
+.trip-dates { font-size: 13px; color: var(--text-mid); margin-bottom: 14px; }
+.trip-stats {
+  display: flex;
+  gap: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-soft);
+}
+.trip-stat strong {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+  display: block;
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+.trip-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.trip-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-mid);
+}
+.trip-chip-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.placeholder-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background: var(--bg-elev);
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  min-height: 320px;
+  padding: 40px;
+  color: var(--text-soft);
+}
+.placeholder-emoji { font-size: 32px; margin-bottom: 12px; opacity: 0.5; }
+.placeholder-title {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  color: var(--text-mid);
+  margin-bottom: 4px;
+}
+.placeholder-text { font-size: 12.5px; line-height: 1.55; }
+
+.footer {
+  margin-top: 96px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+.footer a { color: var(--accent); }
+.footer a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .container { padding: 32px 20px 80px; }
+  .header { margin-bottom: 40px; }
+  .trip-body { padding: 18px 20px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="top-row">
+    <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">☀️</button>
+  </div>
+
+  <header class="header">
+    <span class="title-eyebrow">Sam & Kayniss</span>
+    <h1 class="title">我們的<em>旅行</em>地圖</h1>
+    <p class="subtitle">每一段行程，都是兩個人的故事。<br/>The journeys we share, the maps we make together.</p>
+  </header>
+
+  <section class="section">
+    <h2 class="section-title">2026</h2>
+    <p class="section-sub">Active itineraries</p>
+
+    <div class="trips-grid">
+
+      <a class="trip-card" href="./honeymoon/">
+        <div class="trip-cover">
+          <img src="./honeymoon/img/stop-1/1.jpg" alt="Europe Honeymoon" loading="lazy" />
+          <div class="trip-cover-overlay">
+            <div class="trip-cover-meta">🇮🇹 🇸🇮 🇦🇹 · 3 Countries</div>
+            <div class="trip-countdown" data-countdown="2026-10-16T00:00:00+08:00">—</div>
+          </div>
+        </div>
+        <div class="trip-body">
+          <h3 class="trip-title">🏛️ Europe Honeymoon</h3>
+          <p class="trip-dates">Oct 16 – Nov 1, 2026</p>
+          <div class="trip-chips">
+            <span class="trip-chip"><span class="trip-chip-dot" style="background:#c0392b"></span>Italy</span>
+            <span class="trip-chip"><span class="trip-chip-dot" style="background:#1a7a48"></span>Slovenia</span>
+            <span class="trip-chip"><span class="trip-chip-dot" style="background:#1a4fa8"></span>Austria</span>
+          </div>
+          <div class="trip-stats">
+            <div class="trip-stat"><strong>16</strong>Days</div>
+            <div class="trip-stat"><strong>7</strong>Stops</div>
+            <div class="trip-stat"><strong>2</strong>Travelers</div>
+          </div>
+        </div>
+      </a>
+
+      <div class="placeholder-card">
+        <div class="placeholder-emoji">🗺️</div>
+        <div class="placeholder-title">Next stop?</div>
+        <div class="placeholder-text">Japan? Korea? Bali?<br/>下次旅行規劃完了再加進來 ✨</div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    Made with 🤍 by Sam & Kayniss · <a href="https://github.com/samcraftflow/trips" target="_blank" rel="noopener">samcraftflow/trips</a>
+  </footer>
+</div>
+
+<script>
+// Theme
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('themeToggle').textContent = t === 'dark' ? '🌙' : '☀️';
+}
+const saved = localStorage.getItem('trip-map-theme');
+const sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+applyTheme(saved || sys);
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('trip-map-theme', next);
+  applyTheme(next);
+});
+
+// Countdown
+document.querySelectorAll('[data-countdown]').forEach(el => {
+  const target = new Date(el.dataset.countdown).getTime();
+  const diff = target - Date.now();
+  if (diff <= 0) { el.textContent = '✨ Now'; return; }
+  const days = Math.floor(diff / (1000*60*60*24));
+  el.textContent = `${days} days`;
+});
+</script>
+
+</body>
+</html>
