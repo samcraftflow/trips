@@ -35,6 +35,14 @@ COLOR_SECONDARY="#fafaf7"
 COUNT=0
 while IFS= read -r f; do
   dir=$(dirname "$f")
+  # Safeguard: refuse to re-encrypt an already-encrypted file (causes
+  # 'staticryptInitiator already declared' bug at runtime). User must
+  # restore plain HTML from ~/Documents/trips-preview/ first.
+  if head -2 "$f" | grep -q 'staticrypt-html'; then
+    echo "  ⚠️  $f is already encrypted — skipping."
+    echo "      Restore plain version from trips-preview/ before re-running."
+    continue
+  fi
   echo "  → $f"
   staticrypt "$f" \
     --short \
