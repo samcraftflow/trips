@@ -4331,7 +4331,25 @@ window.onItemClick = function(e, card) {
   if (e && e.target && e.target.closest('.action-btn')) return;
   const lat = parseFloat(card.dataset.lat);
   const lng = parseFloat(card.dataset.lng);
-  if (!isNaN(lat) && !isNaN(lng)) map.flyTo([lat, lng], 15, { duration: 0.8 });
+  if (isNaN(lat) || isNaN(lng)) return;
+  const itemKey = card.dataset.itemKey;
+  const stop = TRIP.stops[currentStopIdx];
+  if (!stop || !itemKey) { map.flyTo([lat, lng], 15, { duration: 0.8 }); return; }
+  const isHotel = itemKey.startsWith('h-');
+  const idx = parseInt(itemKey.split('-')[1], 10);
+  const item = isHotel ? (stop.hotels || [])[idx] : (stop.activities || [])[idx];
+  if (!item) { map.flyTo([lat, lng], 15, { duration: 0.8 }); return; }
+  const targetZoom = isHotel ? 16 : 15;
+  const flyZoom = Math.max(map.getZoom(), targetZoom);
+  map.flyTo([lat, lng], flyZoom, { duration: 0.7, easeLinearity: 0.4 });
+  setTimeout(() => {
+    const html = buildPoiPopupHtml(item, stop, isHotel, itemKey);
+    L.popup({ maxWidth: 280, minWidth: 280, autoPan: true, autoPanPadding: [40, 40], offset: [0, -12] })
+      .setLatLng([lat, lng])
+      .setContent(html)
+      .openOn(map);
+    setTimeout(maybeLoadWikiInPopup, 80);
+  }, 250);
 };
 
 window.openPoiInPanel = function(stopIdx, itemKey) {
