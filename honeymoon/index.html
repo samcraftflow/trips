@@ -1632,6 +1632,10 @@ const TRIP = /*{{TRIP_DATA}}*/ {
   "tripEndDate": "2026-11-02T00:00:00+08:00",
   "lastUpdated": "2026-05-11",
   "coverBadge": "Honeymoon · 2 travelers",
+  "flights": {
+    "amount": 6820,
+    "note": "SGD 1977 @ 3.45 · 2 pax · paid ✓"
+  },
   "packingList": [
     {
       "category": "📄 Documents",
@@ -3368,7 +3372,8 @@ function computeBudget() {
       if (p) t += p * (/per|pax|人/.test(String(x.price)) ? (TRIP.travelers || 1) : 1);
     });
   });
-  return { activities: Math.round(a), hotels: Math.round(h), transport: Math.round(t), grand: Math.round(a + h + t) };
+  const f = TRIP.flights?.amount ? Math.round(TRIP.flights.amount) : 0;
+  return { activities: Math.round(a), hotels: Math.round(h), transport: Math.round(t), flights: f, grand: Math.round(a + h + t + f) };
 }
 
 /* ─── COUNTDOWN ─── */
@@ -3425,12 +3430,16 @@ function renderStats() {
 }
 function renderBudget() {
   const b = computeBudget();
+  const flightLabel = TRIP.flights?.note ? `<span>✈️ Flights <span style="color:var(--text-soft);font-weight:400">· ${escapeHtml(TRIP.flights.note)}</span></span>` : `<span>✈️ Flights</span>`;
+  const flightsRow = b.flights ? `<div class="budget-row">${flightLabel}<strong>${TRIP.currency} ${fmt(b.flights)}</strong></div>` : '';
+  const footExcludes = b.flights ? 'meals, shopping' : 'flights, meals, shopping';
   $('#budgetCard').innerHTML = `
     <div class="budget-head">
       <span class="budget-title">Estimated Budget</span>
       <span class="budget-currency">${TRIP.currency} · ${TRIP.travelers} pax</span>
     </div>
     <div class="budget-rows">
+      ${flightsRow}
       <div class="budget-row"><span>🎯 Activities</span><strong>${TRIP.currency} ${fmt(b.activities)}</strong></div>
       <div class="budget-row"><span>🏨 Hotels (median × nights)</span><strong>${TRIP.currency} ${fmt(b.hotels)}</strong></div>
       <div class="budget-row"><span>🚄 Transport</span><strong>${TRIP.currency} ${fmt(b.transport)}</strong></div>
@@ -3439,7 +3448,7 @@ function renderBudget() {
       <span class="budget-total-label">Grand Total</span>
       <span class="budget-total-amount">${TRIP.currency} ${fmt(b.grand)}</span>
     </div>
-    <p class="budget-foot">* Rough estimate. Excludes flights, meals, shopping. Hotels use median of listed options.</p>
+    <p class="budget-foot">* Rough estimate. Excludes ${footExcludes}. Hotels use median of listed options.</p>
   `;
 }
 
