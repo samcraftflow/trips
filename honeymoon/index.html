@@ -447,7 +447,14 @@ img { display: block; max-width: 100%; }
   margin-bottom: 2px;
 }
 .packing-title { font-size: 12px; font-weight: 600; color: var(--text); }
-.packing-chevron { font-size: 16px; color: var(--text-mid); transition: transform 0.2s ease; line-height: 1; padding: 2px 4px; }
+.packing-chevron {
+  width: 24px; height: 24px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--text-mid);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.packing-chevron svg { width: 14px; height: 14px; stroke-width: 2.2; }
 .packing-card.is-open .packing-chevron { transform: rotate(180deg); }
 .packing-detail { font-size: 11.5px; color: var(--text-soft); }
 .packing-detail .left { color: var(--warning); font-weight: 600; }
@@ -1560,7 +1567,7 @@ img { display: block; max-width: 100%; }
     <div class="map-controls">
       <div class="map-style-switcher" id="mapStyleSwitcher">
         <button class="style-btn is-active" data-style="editorial">Editorial</button>
-        <button class="style-btn" data-style="watercolor">Watercolor</button>
+        <button class="style-btn" data-style="vintage">Vintage</button>
         <button class="style-btn" data-style="satellite">Satellite</button>
       </div>
       <button class="map-reset" id="mapReset"><span>◉</span><span>Show All</span></button>
@@ -3517,7 +3524,7 @@ function renderPackingCard() {
       <div class="packing-body">
         <div class="packing-title-row">
           <span class="packing-title">Packing List</span>
-          <span class="packing-chevron" aria-hidden="true">▾</span>
+          <span class="packing-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,5 7,9 11,5"/></svg></span>
         </div>
         <div class="packing-detail">
           ${c.done} of ${c.total} packed
@@ -3665,9 +3672,9 @@ const MAP_STYLES = {
     light: { url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', attr: '&copy; OSM &copy; CARTO', sub: 'abcd' },
     dark:  { url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',  attr: '&copy; OSM &copy; CARTO', sub: 'abcd' }
   },
-  watercolor: {
-    light: { url: 'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg', attr: '&copy; Stadia Maps &copy; Stamen &copy; OSM', sub: 'abcd' },
-    dark:  { url: 'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg', attr: '&copy; Stadia Maps &copy; Stamen &copy; OSM', sub: 'abcd' }
+  vintage: {
+    light: { url: 'https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', attr: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC', sub: 'abc' },
+    dark:  { url: 'https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', attr: 'Tiles &copy; Esri &mdash; National Geographic, Esri', sub: 'abc' }
   },
   satellite: {
     light: { url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr: 'Tiles &copy; Esri', sub: 'abc' },
