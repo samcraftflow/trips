@@ -1413,11 +1413,18 @@ img { display: block; max-width: 100%; }
   cursor: pointer;
   padding: 6px 0;
   list-style: none;
-  display: flex; align-items: center; gap: 6px;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
 }
 .gtk-extra summary::-webkit-details-marker { display: none; }
-.gtk-extra summary::before { content: '▸'; font-size: 9px; transition: transform 0.2s ease; }
-.gtk-extra[open] summary::before { transform: rotate(90deg); }
+.gtk-chevron {
+  width: 24px; height: 24px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--text-mid);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.gtk-chevron svg { width: 14px; height: 14px; stroke-width: 2.2; }
+.gtk-extra[open] .gtk-chevron { transform: rotate(180deg); }
 .gtk-extra-content { padding-top: 10px; }
 .emergency-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; }
 .emergency-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); }
@@ -4202,7 +4209,7 @@ function renderGoodToKnow(stop) {
     const rows = Object.entries(country.emergency).map(([k, v]) =>
       `<div class="emergency-item"><span class="emergency-key">${escapeHtml(k)}</span><span class="emergency-val">${escapeHtml(v)}</span></div>`).join('');
     emergencyHtml = `<details class="gtk-extra">
-      <summary>🚨 Emergency Numbers</summary>
+      <summary><span>🚨 Emergency Numbers</span><span class="gtk-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,5 7,9 11,5"/></svg></span></summary>
       <div class="gtk-extra-content"><div class="emergency-list">${rows}</div></div>
     </details>`;
   }
@@ -4211,7 +4218,7 @@ function renderGoodToKnow(stop) {
     const rows = country.phrases.map(p =>
       `<div class="phrase-row"><span class="phrase-en">${escapeHtml(p[0])}</span><span class="phrase-local">${escapeHtml(p[1])}</span></div>`).join('');
     phrasesHtml = `<details class="gtk-extra">
-      <summary>💬 Travel Phrases (${escapeHtml(country.name)})</summary>
+      <summary><span>💬 Travel Phrases (${escapeHtml(country.name)})</span><span class="gtk-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,5 7,9 11,5"/></svg></span></summary>
       <div class="gtk-extra-content"><div class="phrases-list">${rows}</div></div>
     </details>`;
   }
