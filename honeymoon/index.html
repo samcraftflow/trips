@@ -1634,7 +1634,7 @@ const TRIP = /*{{TRIP_DATA}}*/ {
   "coverBadge": "Honeymoon · 2 travelers",
   "flights": {
     "amount": 6820,
-    "note": "SGD 1977 @ 3.45 · 2 pax · paid ✓"
+    "note": "SGD 1977 @ 3.45"
   },
   "packingList": [
     {
@@ -3439,10 +3439,10 @@ function renderBudget() {
       <span class="budget-currency">${TRIP.currency} · ${TRIP.travelers} pax</span>
     </div>
     <div class="budget-rows">
-      ${flightsRow}
       <div class="budget-row"><span>🎯 Activities</span><strong>${TRIP.currency} ${fmt(b.activities)}</strong></div>
       <div class="budget-row"><span>🏨 Hotels (median × nights)</span><strong>${TRIP.currency} ${fmt(b.hotels)}</strong></div>
       <div class="budget-row"><span>🚄 Transport</span><strong>${TRIP.currency} ${fmt(b.transport)}</strong></div>
+      ${flightsRow}
     </div>
     <div class="budget-total">
       <span class="budget-total-label">Grand Total</span>
