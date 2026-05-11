@@ -1633,8 +1633,8 @@ const TRIP = /*{{TRIP_DATA}}*/ {
   "lastUpdated": "2026-05-11",
   "coverBadge": "Honeymoon · 2 travelers",
   "flights": {
-    "amount": 6820,
-    "note": "SGD 1977 @ 3.45"
+    "amount": 6206.54,
+    "note": "SGD 1977 @ 3.13"
   },
   "packingList": [
     {
@@ -3372,7 +3372,7 @@ function computeBudget() {
       if (p) t += p * (/per|pax|人/.test(String(x.price)) ? (TRIP.travelers || 1) : 1);
     });
   });
-  const f = TRIP.flights?.amount ? Math.round(TRIP.flights.amount) : 0;
+  const f = TRIP.flights?.amount ? Number(TRIP.flights.amount) : 0;
   return { activities: Math.round(a), hotels: Math.round(h), transport: Math.round(t), flights: f, grand: Math.round(a + h + t + f) };
 }
 
